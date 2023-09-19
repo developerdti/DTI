@@ -1,0 +1,16 @@
+Options -Multiviews
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
+
+php_value memory_limit 512M
+
+php_value max_execution_time 2700
+php_value mssql.timeout 2700
+
+php_value upload_max_filesize 200M
+php_value post_max_size 200M

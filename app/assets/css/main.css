@@ -1,0 +1,145 @@
+:root{
+    --background :#222D57;
+    --white:#FFFFFF;
+    --black:#000000;
+    --pantone:#4D5470;
+}
+
+/* body { min-height: 100vh; } */
+
+
+html {
+    /* 1rem = 10px */
+    font-size: 62.5%;
+  }
+  body {
+    font-size: 1.6rem;
+  }
+
+i{
+    color: white;
+    font-size: 25rem;
+}
+
+/* img{max-width: 23rem;} */
+
+
+
+.div__login--background{
+    display: grid;
+    place-content: center;
+    background-color: var(--background);
+    min-height: 100vh;
+}
+
+.fieldset__form--login{
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    font-size: 2rem;
+}
+.fieldset__form--login > label{
+    font-size: 2rem;
+}
+
+.div--logo, .div__login--start{
+    min-height: 100%;
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.div--logo{ 
+    border-top-left-radius: 5rem;
+    border-bottom-left-radius: 5rem;
+    background: rgb(113, 123, 163 , 0.6);
+}
+.logo--sertec{
+    width: 35rem;
+}
+
+.form__container--login{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#i__icon--lock{
+    font-size: 20rem;
+}
+
+.div__login--start{
+    display: grid;
+    grid-template-rows: 3rem ;
+    grid-template-columns: 100%;
+    border-top-right-radius: 5rem;
+    border-bottom-right-radius: 5rem;
+    background: rgb(77, 84, 112, 0.6);
+}
+
+.div__signin--login{
+    display: flex;
+    justify-content: right;
+}
+
+.div__buttons--change{
+    display:flex;
+    margin-top: 8rem;
+    margin-right: 6rem;
+}
+
+.buttons--login--signin{
+    font-size: 2.5rem;
+    border: none;
+    background: #FFFFFF;
+    margin: 0;
+    padding: 0.5rem;
+}
+
+.button__change--login{
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+}
+
+.button__change--signin{
+    border-left: 0.2rem solid var(--black );
+    border-bottom-right-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+
+.button--login{
+    border-radius: 2rem;
+    font-size: 2.5rem;
+    border: none;
+    background-color: var(--white);
+}
+
+#usernameID, #passwordID{
+    background: rgb(77, 84, 112, 0);
+    border: none;
+    color: var(--white);
+    border-bottom: 0.2rem solid var(--white);
+}
+
+#usernameID:focus, #passwordID:focus{
+    outline: none;
+    border-bottom: 0.2rem solid var(--white);
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.div--login{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    align-items: center;
+    background: rgb(77, 84, 112, 0.6);
+    border-radius: 5rem;
+    color: var(--white);
+    min-width: 100rem;
+    min-height : 75rem;
+}
+
+
+
+
