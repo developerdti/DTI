@@ -52,6 +52,7 @@ function enableJobcodestemplate() {
                     </span>
                     <input type="hidden" name="name" value="${e['name']}">
                     <input type="hidden" name="jobcode" value="${e['jobCode']}">
+
                     <div class="fieldsetPermission__profile">
                         <label for="select--Profile${e['jobCode']}">Perfil</label>
                         <select id="select--Profile${e['jobCode']}" class="form-select fieldsetPermission__select-profile" name="profile">
@@ -59,14 +60,14 @@ function enableJobcodestemplate() {
                             ${options}
                         </select>
                     </div>
-                    <div class="fieldsetPermission__client">
+                    <div class="fieldsetPermission__client" id="select--client${e['jobCode']}">
 
                     </div>
-                    <div class="fieldsetPermission__manager">
+                    <div class="fieldsetPermission__manager" id="select--manager${e['jobCode']}">
 
                     </div>
                     <div class="fieldsetPermission__button">
-                        <button id="enableUserId" type="button" class="fieldsetPermission__button--enable" disabled>Habilitar usuario</button>
+                        <button id="enableUserbuttonId${e['jobCode']}" type="button" class="fieldsetPermission__button--enable" disabled>Habilitar usuario</button>
                         <button type="button" class="fieldsetPermission__button--refused">Rechazar Usuario</button>
                     </div>
                 </fieldset>
@@ -89,21 +90,16 @@ function profile() {
         "change",
         'select[class~="fieldsetPermission__select-profile"]',
         function (e) {
-            let formClient = this.parentNode.nextElementSibling;
+            const formpru = document.forms[this.parentNode.parentNode.parentNode.id];
+            const jobcodeID = formpru.elements[2].value;
+            let divSelectClient = document.getElementById(`select--client${jobcodeID}`);
+            let buttonEnableUserID = document.getElementById(`enableUserbuttonId${jobcodeID}`);
             let optionsClient = "",
                 selectClient = "";
-            let validSibling = this.parentNode.nextElementSibling.nextElementSibling.nextElementSibling.firstChild;
-            while (validSibling) {
-
-                if (validSibling.className === 'fieldsetPermission__button--enable') {
-                    buttonEnable = validSibling;
-                }
-                validSibling = validSibling.nextSibling;
-            }
 
             if (this.value === "Elige...") {
-                buttonEnable.disabled = true;
-                formClient.innerHTML = "";
+                buttonEnableUserID.disabled = true;
+                divSelectClient.innerHTML = "";
                 return;
             }
             let profile = request.profile.find((e) => e.id === this.value);
@@ -120,13 +116,13 @@ function profile() {
                                 ${optionsClient}
                         </select>           
                     `;
-                formClient.innerHTML = selectClient;
-                buttonEnable.disabled = true;
+                divSelectClient.innerHTML = selectClient;
+                buttonEnableUserID.disabled = true;
                 return;
             }
 
-            formClient.innerHTML = "";
-            buttonEnable.disabled = false;
+            divSelectClient.innerHTML = "";
+            buttonEnableUserID.disabled = false;
         }
     );
 }
@@ -137,10 +133,9 @@ function getManager() {
         "change",
         'select[class~="fieldsetPermission__select-client"]',
         function (e) {
-            const profileSelect = this.parentNode.previousElementSibling;
-            console.log(profileSelect);
+            const profile = this.parentNode.previousElementSibling;
             let formManager = this.parentNode.nextElementSibling;
-            let profilevalid = request.profileSelect.find((e) => e.id === profileSelect.childNodes[3].value);
+            let profilevalid = request.profile.find((e) => e.id === profile.childNodes[3].value);
             let validSibling = this.parentNode.nextElementSibling.nextElementSibling.firstChild;
             while (validSibling) {
                 if (validSibling.className === 'fieldsetPermission__button--enable') {
@@ -149,51 +144,51 @@ function getManager() {
                 validSibling = validSibling.nextSibling;
             }
 
-            // if (!("needsmanager" in profilevalid)) {
-            //     buttonEnable.disabled = false;
-            //     return;
-            // }
-            // const manager = document.forms[this.parentNode.parentNode.parentNode.id];
-            // let selectManager = '', optionsManager = '';
-            // fetch("Permissions/getManager", {
-            //     method: "POST",
-            //     body: new FormData(manager)
-            // })
-            //     .then((response) => {
-            //         status = response.status;
-            //         return response.json();
-            //     })
-            //     .then((data) => {
-            //         import("./helper.js").then((module) => {
-            //             if (status === 200) {
-            //                 console.log(data['managers']);
-            //                 data['managers'].forEach((key) => {
-            //                     optionsManager += `
-            //                             <option value="${key["id"]}">${key["name"]}</option>
-            //                         `;
-            //                 });
-            //                 selectManager = `
-            //                         <label class="" for="select__Manager">Supervisor</label>
-            //                         <select class="form-select fieldsetPermission__select-client" name="Manager" id="select__Manager">
-            //                             <option selected>Elige...</option>
-            //                                 ${optionsManager}
-            //                         </select>
-            //                     `;
-            //                 formManager.innerHTML = selectManager;
-            //                 buttonEnable.disabled = false;
-            //             } else if (module.statusCode.hasOwnProperty(status)) {
-            //                 module.statusCode[status](data);
-            //             } else {
-            //                 module.statusCode["default"]();
-            //             }
-            //         });
-            //     })
-            //     .catch((error) => {
-            //         console.log(error);
-            //         import("./helper.js").then((module) => {
-            //             module.statusCode["default"]();
-            //         });
-            //     });
+            if (!("needsmanager" in profilevalid)) {
+                buttonEnable.disabled = false;
+                return;
+            }
+            const manager = document.forms[this.parentNode.parentNode.parentNode.id];
+            let selectManager = '', optionsManager = '';
+            fetch("Permissions/getManager", {
+                method: "POST",
+                body: new FormData(manager)
+            })
+                .then((response) => {
+                    status = response.status;
+                    return response.json();
+                })
+                .then((data) => {
+                    import("./helper.js").then((module) => {
+                        if (status === 200) {
+                            console.log(data['managers']);
+                            data['managers'].forEach((key) => {
+                                optionsManager += `
+                                        <option value="${key["id"]}">${key["name"]}</option>
+                                    `;
+                            });
+                            selectManager = `
+                                    <label class="" for="select__Manager">Supervisor</label>
+                                    <select class="form-select fieldsetPermission__select-client" name="Manager" id="select__Manager">
+                                        <option selected>Elige...</option>
+                                            ${optionsManager}
+                                    </select>
+                                `;
+                            formManager.innerHTML = selectManager;
+                            buttonEnable.disabled = false;
+                        } else if (module.statusCode.hasOwnProperty(status)) {
+                            module.statusCode[status](data);
+                        } else {
+                            module.statusCode["default"]();
+                        }
+                    });
+                })
+                .catch((error) => {
+                    console.log(error);
+                    import("./helper.js").then((module) => {
+                        module.statusCode["default"]();
+                    });
+                });
         }
     );
 }
