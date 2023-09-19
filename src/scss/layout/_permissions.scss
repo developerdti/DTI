@@ -1,0 +1,121 @@
+@use 'base/variables' as v;
+
+.permissions{
+    margin-top:6rem;
+
+    span{
+        font-weight: 600;
+    }
+    &--div{
+        display: flex;
+        gap: 2rem;
+    }
+    &__tabs{
+        display: flex;
+        height: max-content;
+
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    &__deployment{
+        span{
+            margin-left: 1rem;
+        }
+        height: 60rem;
+        width: 100%;
+
+        &__enableJobcodes{
+            max-height: max-content;
+            margin: 1rem;
+        }
+    }
+    
+}
+
+/*nav buttons*/
+.nav-link{
+    display: flex;
+    justify-content: start;
+    width: 100%;
+    color: v.$pantone !important;
+    &:hover{
+        color: v.$white !important;
+        background-color: v.$pantonelight !important;
+    }
+    &.active{
+        background-color: v.$background !important;
+        color: v.$white !important;
+    }
+}
+
+.enableJobcodes{
+    border-bottom: 0.1rem solid v.$black;
+    &__scrollTabs{
+        overflow-y:auto;
+        max-height: 15rem;
+        margin-bottom: 1rem;
+    }
+    &__tab-list{
+        display: flex;
+        flex-direction: column;
+        span{
+            margin-left: 1.5rem;
+        }
+    }
+}
+
+.form--enableUser{
+    display: flex;
+    justify-content: center;
+    margin-top: 5rem;
+    &__fieldset{
+        background-color: v.$background;
+        color: v.$white !important;
+        border: 0.1rem solid v.$background;
+        border-radius: 1.5rem;
+        width: max-content;
+    }
+    button{
+        border-radius: 0.3rem;
+        background-color: rgb(77, 84, 112, 0);
+    }
+}
+
+.fieldsetPermission{
+    width: 35rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    &__button{
+        &--enable{
+            border: 0.1rem solid v.$success;
+            color: v.$success;  
+            &:hover{
+                color: v.$white;
+                background-color: v.$success;
+            }
+            &:disabled{
+                border: 0.1rem solid v.$pantone;
+                color: v.$pantone;
+                &:hover{
+                    background-color: rgb(77, 84, 112, 0);
+                    color: v.$pantone;
+                }   
+            }
+        }
+        &--refused{
+            border: 0.1rem solid v.$danger;
+            color: v.$danger;
+            &:hover{
+                color: v.$white;
+                background-color: v.$danger;
+            }
+        }
+    }
+}
+
+
+
+
+

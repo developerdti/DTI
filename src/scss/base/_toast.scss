@@ -1,0 +1,62 @@
+@use 'base/variables' as v;
+
+#toast__identier-success{
+    background-color: v.$white;
+    -webkit-box-shadow: -2px 2px 21px 0px rgba(25,135,84,0.95);
+    -moz-box-shadow: -2px 2px 21px 0px rgba(25,135,84,0.95);
+    box-shadow: -2px 2px 21px 0px rgba(25,135,84,0.95);
+    color: v.$success;
+    border-color: v.$success;
+    max-width: 40rem;
+    min-width: 30rem;
+    margin-right: 2rem;
+    margin-bottom: 2rem;
+
+    div{
+        &.toast--notification{
+            &__header{
+                padding: 0.5rem;
+                font-size: 2rem;
+                display: flex;
+                justify-content: space-between;
+                border-bottom: v.$success solid 0.1rem;
+            }
+            &__body{
+                font-size: 2rem;
+                padding: 1.5rem;
+            }
+        }   
+    }  
+}
+
+#toast__identier-warning{
+    background-color: v.$white;
+    -webkit-box-shadow: 2px 4px 19px 0px rgba(220,53,69,0.8);
+    -moz-box-shadow: 2px 4px 19px 0px rgba(220,53,69,0.8);
+    box-shadow: 2px 4px 19px 0px rgba(220,53,69,0.8);
+    color: v.$danger;
+    border-color: v.$danger;
+    max-width: 40rem;
+    min-width: 30rem;
+    margin-right: 2rem;
+    margin-bottom: 2rem;
+
+    div{
+        &.toast--notification{
+            &__header{
+                padding: 0.5rem;
+                font-size: 2rem;
+                display: flex;
+                justify-content: space-between;
+                border-bottom: v.$danger solid 0.1rem;
+            }
+            &__body{
+                font-size: 2rem;
+                padding: 1.5rem;
+            }
+        }   
+    }
+}
+
+
+

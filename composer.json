@@ -1,0 +1,19 @@
+{
+    "name": "vendor/composer_vendor",
+    "autoload": {
+        "psr-4": {
+            "libs\\": "libs",
+            "libs\\config\\": "libs/config",
+            "libs\\exception\\": "libs/exception",
+            "app\\controllers\\":"app/controllers",
+            "app\\models\\":"app/models",
+            "app\\views\\":"app/views"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ivan Ezequiel Caballero Cruz"
+        }
+    ],
+    "require": {}
+}

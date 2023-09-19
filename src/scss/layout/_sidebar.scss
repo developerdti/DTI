@@ -1,0 +1,46 @@
+@use 'base/variables' as v;
+
+
+.offcanvas-body{
+    display: flex;
+    flex-direction: column;
+    &__child{
+        border-radius: 0.5rem;
+        font-size: 2rem;
+        &:hover{
+            border-bottom:0.2rem solid v.$pantonelight;
+            i{
+                color: v.$pantone;
+            }
+            a{
+                color: v.$pantone;
+            }
+        }
+        i{
+            margin-left: 1rem;
+            margin-right: 1rem;
+            font-size: 4rem;
+            color: v.$black;
+        }
+        a{
+            color: v.$black;
+            text-decoration: none;
+            display: flex;
+            justify-content:start;
+            align-items: center;
+        }
+    }
+}
+
+.accordion{
+    i{
+        margin-left: 1rem;
+        margin-right: 1rem;
+        font-size: 4rem;
+        color: v.$black;
+    }
+    button{
+        font-size: 2rem;
+        
+    }
+}

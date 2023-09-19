@@ -1,0 +1,155 @@
+@use 'base/variables' as v;
+
+.schedule{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+    margin-top: 20rem;
+    color: v.$white;
+    &__fieldset{
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-top: 1rem;
+    }
+    input{
+        border: none;
+        color: v.$white;
+        border-bottom: 0.2rem solid v.$pantonelight;
+        background-color: rgb(77, 84, 112, 0);
+        &:focus{
+            outline: none;
+            border-bottom: 0.2rem solid v.$white;
+            color: rgba(255, 255, 255, 0.5);
+        }
+    }
+    textarea{
+        font-size: 1.5rem;
+        height: 12rem;
+        max-height: 12rem;
+    }
+    &--formcontainer{
+        width: 60rem;
+        height: max-content;
+        border-radius: 2rem;
+        background-color: v.$background;
+    }
+
+    &__graphics{
+        width: 80rem;    
+    }
+    &--div__buttons{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;  
+    }
+    &__button{
+        color: v.$white;
+        border: 0.1rem solid v.$pantonelight;
+        background-color: rgb(77, 84, 112, 0);
+        border-radius: 1rem;
+        width: 15rem;
+        height: 3rem;
+        &:hover{
+            color: v.$pantone;
+            background-color: v.$white;
+        }
+    }
+
+    &__follow-Up{
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+}
+
+.modal-body{
+    td{
+        max-height: 13.5rem;
+        min-width: max-content;
+        color: v.$pantonelight;
+    }
+    i{
+        font-size: 1rem;
+    }
+    input{
+        cursor: pointer;
+        background-color: rgb(77, 84, 112, 0);
+        border-style: none;
+        width: 12rem;
+        padding: 0;
+        &:disabled{
+            color: v.$pantonelight;
+            opacity: 1;
+        }
+        &:enabled{
+            border: none;
+        }
+        &:focus{
+            border: none;
+            outline: none;
+        }
+    }
+    select{
+        background-color: rgba(255, 255, 255, 0);
+        cursor: pointer;
+        position: relative;
+        transition: all 0.25s ease;
+        border: none;
+        width: max-content;
+        option{
+            background-color: v.$pantone;
+            color: v.$white;
+            &:hover{
+                background-color: v.$pantonelight;
+            }
+        }
+        &:disabled{
+            color: v.$pantonelight;
+            opacity: 1;
+        }
+    }
+}
+
+.btn-followup{
+    width: 6rem;
+}
+
+
+.modal-content{
+    max-height: 80rem !important;
+}
+
+.TD__border{
+
+    input{
+        color: v.$black !important;
+    }
+    select{
+        color: v.$black
+         !important;
+    }
+}
+
+.delete_thNote{
+    width: 6rem !important;
+}
+.delete_note{
+    display: grid;
+    justify-items: center;
+    i{
+        font-size: 2rem;
+        color: v.$black;
+    }
+    button{
+        border: none;
+        background-color: rgba(255, 255, 255, 0);
+        &:hover{
+            i{
+                color: v.$pantonelight;
+            }
+        }
+    }
+}

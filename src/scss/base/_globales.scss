@@ -1,0 +1,22 @@
+@use 'variables' as v;
+
+html {
+    /* 1rem = 10px */
+    font-size: 62.5%;
+  }
+  body {
+    font-size: 1.6rem;
+  }
+
+i{
+    color: v.$white;
+    font-size: 25rem;
+}
+
+*{
+  margin: 0;
+}
+
+p{
+  margin: 0;
+}

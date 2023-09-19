@@ -1,0 +1,96 @@
+@use 'base/variables' as v;
+
+.navbar{
+    display:flex;
+    flex-direction: row;
+    justify-content:space-between;
+    align-items: center;
+    height: 7rem;
+    max-height: 7rem;
+    background-color: v.$background;
+    i{
+        cursor: pointer;
+        font-size: 3rem;
+        &:hover{
+            color: v.$pantonelight;
+        }
+    }
+}
+
+.navbar__userMenu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: v.$white;
+    margin-right: 2rem;
+    div{
+        margin-left: 0.5rem;
+        padding-left: 1rem;
+        display: flex;
+    }
+    &__user{
+        button{
+            border:none;
+            background-color: rgb(77, 84, 112, 0);
+            cursor: pointer;
+            font-size: 3rem;
+            &:hover{
+                color: v.$pantonelight;
+            }
+            i{
+                cursor: pointer;
+                font-size: 3rem;
+                &:hover{
+                    color: v.$pantonelight;
+                }
+            }
+        }
+    }
+    &__logout{
+        border-left: 0.2rem solid v.$white;
+    }
+}
+
+.dropdown-menu[data-bs-popper]{
+    a{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: v.$white !important;
+        &:hover{
+            background-color: v.$pantonelight;
+        }
+        i{
+            margin-right: 1rem;
+            font-size: 2rem;
+            &:hover{
+                color: v.$white !important;
+            }
+        }
+    }
+    
+    font-size: 1.5rem;
+    background-color: v.$background;
+    left: -10rem !important;
+    top: 5rem !important;
+}
+
+.div_iconLogout{
+    width: max-content;
+}
+
+.sidebar{
+    margin-left: 2rem;
+}
+
+
+.offcanvas-header{
+    background-color: v.$background;
+}
+.div--logoMain{
+    img{
+        max-width: 14rem;   
+    }
+}
+
+
