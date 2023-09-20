@@ -986,12 +986,34 @@ template {
 }
 
 .fieldsetPermission {
-  width: 35rem;
+  width: 40rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
+.fieldsetPermission select {
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+.fieldsetPermission span {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.fieldsetPermission span i {
+  font-size: 4rem;
+}
+.fieldsetPermission__button {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
 .fieldsetPermission__button--enable {
+  padding: 0.5rem;
   border: 0.1rem solid #198754;
   color: #198754;
 }
@@ -1008,10 +1030,31 @@ template {
   color: #4D5470;
 }
 .fieldsetPermission__button--refused {
+  padding: 0.5rem;
   border: 0.1rem solid #dc3545;
   color: #dc3545;
 }
 .fieldsetPermission__button--refused:hover {
   color: #FFFFFF;
   background-color: #dc3545;
+}
+
+.SearchUser {
+  border-bottom: 0.1rem solid #000000;
+}
+.SearchUser__search-tabs {
+  overflow-y: auto;
+  max-height: 15rem;
+  margin-bottom: 1rem;
+}
+.SearchUser__listPills {
+  display: flex;
+  flex-direction: column;
+}
+.SearchUser__listPills span {
+  margin-left: 1.5rem;
+}
+.SearchUser i {
+  font-size: 1.5rem;
+  color: #4D5470;
 }

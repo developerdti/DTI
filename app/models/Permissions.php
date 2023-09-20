@@ -99,7 +99,7 @@ class Permissions{
         LEFT JOIN 
             [dbo].[client] as client on (client.id = userI.clientId)
         WHERE
-            client.id = :clientId";
+            client.id = :clientId AND profile.id = 3";
 
         $config = [
             "bindvalues"=> [
@@ -174,7 +174,7 @@ class Permissions{
                     ":firstName" => $data['firstName'],
                     ":secondName" => $data['secondName'],
                     ":lastName" => $data['lastName'],
-                    ":managerId" => $configData['managerId'] ?? null,
+                    ":managerId" => $configData['Manager'] ?? null,
                 ],
             "connection" => "server",
             "actions" => "modify"
@@ -205,4 +205,52 @@ class Permissions{
         DataBase::stmGenerator($stm,$config);
     }
 
+    public static function refusedJobcode(string $jobcode): void
+    {
+        $stm = 
+        "UPDATE 
+            [dbo].[userRequest] 
+        SET 
+            status = 2
+        WHERE
+            jobCode = :jobcode AND status = 0
+        ";
+
+        $config = [
+            "bindvalues"=> [
+                    ":jobcode" => $jobcode
+                ],
+            "connection" => "server",
+            "actions" => "modify"
+        ];
+
+        DataBase::stmGenerator($stm,$config);
+    }
+
+    public static function searchUsersRegistered(string $jobcode): array
+    {
+        $stm =
+        "SELECT userI.id as id,userP.jobCode as jobcode, concat(lastName,' ',firstName,' ',secondName) as name FROM 
+            [dbo].[userInfo] as userI
+        INNER JOIN 
+            [dbo].[user] as userP ON (userI.userId = userP.id)
+        WHERE
+            (LOWER(lastName) like :jobcode) OR (LOWER(firstName) like :jobcode2) 
+            OR (LOWER(secondName) like :jobcode3) OR (LOWER(userP.jobCode) like :jobcode4)
+        ";
+
+        $config = [
+            "bindvalues"=> [
+                ":jobcode"=> $jobcode,
+                ":jobcode2"=> $jobcode,
+                ":jobcode3"=> $jobcode,
+                ":jobcode4"=> $jobcode,
+                ],
+            "connection" => "server",
+            "actions" => "search",
+            "fetch" => "all"
+        ];
+
+        return DataBase::stmGenerator($stm,$config);
+    }
 }

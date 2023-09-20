@@ -109,7 +109,6 @@ class Permissions extends controllers
     }
 
     public function enableJobcodes(){
-
         try {
             $requestData = modelPermissions::requestData($_POST['jobcode']);
 
@@ -128,6 +127,82 @@ class Permissions extends controllers
                 'warning',
                 MessageException::createMessage(
                     'Enable Jobcodes error',
+                    $e->getMessage(),
+                    (int)$e->getCode(),
+                    get_class($e),
+                    $previous
+                )
+            );
+            http_response_code($e->getCode());
+        } finally {
+            echo json_encode($this->data->getdata());
+        }
+    }
+
+    public function refusedJobcodes(){
+        try {
+            modelPermissions::refusedJobcode($_POST['jobcode']);
+
+            $this->data->generateMessage(
+                'exito',
+                ['title' => 'Registro exitoso', 'message' => 'El usuario fue rechazado']
+            );
+            $this->data->generateMessage('jobcode',$_POST['jobcode']);
+        } catch (Throwable $e) {
+            $previous = $e->getPrevious() ? $e->getPrevious()->getMessage() : '';
+            $this->data->generateMessage(
+                'warning',
+                MessageException::createMessage(
+                    'Refused Jobcodes error',
+                    $e->getMessage(),
+                    (int)$e->getCode(),
+                    get_class($e),
+                    $previous
+                )
+            );
+            http_response_code($e->getCode());
+        } finally {
+            echo json_encode($this->data->getdata());
+        }
+    }
+
+    public function searchUsers(){
+        try {
+            $regex = '/[\^ <,\"@\/{}()*$%¿?=>:|;#+\-0-9]+/i';
+
+            if (preg_match($regex, $_POST['searchUsers']) == 1 || empty($_POST['searchUsers'])) {
+                $template = '<h3>No se encuentran resultados</h3>';
+            }else{
+                $template = '';
+                $like = $_POST['searchUsers'].'%';
+                $searchResult = modelPermissions::searchUsersRegistered($like);
+
+                if(empty($searchResult)){
+                    $template = '<h3>No se encuentran resultados</h3>';
+                }else{
+                    foreach($searchResult as $key){
+                            $template .= <<<EOD
+                                <li>
+                                    <button class="nav-link SearchUser__listPills-button" id='tabUser-{$key["id"]}' data-bs-toggle="pill" 
+                                    type="button">{$key["name"]} claves: {$key["jobcode"]}</button>
+                                </li>
+                            EOD;
+                    }
+                    $template = <<<EOD
+                    <ul class="nav nav-pills mb-3 SearchUser__listPills" id="pills-tab">
+                        {$template}
+                    </ul>
+                    EOD;
+                 }
+            }
+            
+            $this->data->generateMessage('templateTab',$template);
+        } catch (Throwable $e) {
+            $previous = $e->getPrevious() ? $e->getPrevious()->getMessage() : '';
+            $this->data->generateMessage(
+                'warning',
+                MessageException::createMessage(
+                    'Search Users error',
                     $e->getMessage(),
                     (int)$e->getCode(),
                     get_class($e),

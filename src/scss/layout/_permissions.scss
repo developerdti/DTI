@@ -83,12 +83,33 @@
 }
 
 .fieldsetPermission{
-    width: 35rem;
+    width: 40rem;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    select{
+        font-size: 1.3rem;
+        cursor: pointer;
+    }
+    span{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        i{
+            font-size: 4rem;
+        }
+    }
+
     &__button{
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 1rem;
+        font-size: 1.8rem;
         &--enable{
+            padding: 0.5rem;
             border: 0.1rem solid v.$success;
             color: v.$success;  
             &:hover{
@@ -105,6 +126,7 @@
             }
         }
         &--refused{
+            padding: 0.5rem;
             border: 0.1rem solid v.$danger;
             color: v.$danger;
             &:hover{
@@ -116,6 +138,25 @@
 }
 
 
+.SearchUser{
+    border-bottom: 0.1rem solid v.$black;
+    &__search-tabs{
+        overflow-y:auto;
+        max-height: 15rem;
+        margin-bottom: 1rem;
+    }
+    &__listPills{
+        display: flex;
+        flex-direction: column;
+        span{
+            margin-left: 1.5rem;
+        }
+    }
 
+    i{
+        font-size: 1.5rem;
+        color: v.$pantone;
+    }
+}
 
 

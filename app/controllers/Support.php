@@ -36,6 +36,7 @@ class Support{
         }
     }
 
+
     /**
      * Format string for gramatical purpose
      * @access  public
