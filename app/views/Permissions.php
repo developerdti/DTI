@@ -4,15 +4,16 @@
             <div class="nav nav-pills permissions__tabs" id="v-pills-tab">
                 <button class="nav-link active" id="SearchUser-tab" data-bs-toggle="pill" data-bs-target="#SearchUser" type="button">Buscar usuario</button>
                 <button class="nav-link" id="EnableJobcodes-tab" data-bs-toggle="pill" data-bs-target="#EnableJobcodes" type="button">Habilitar claves</button>
-                <!-- <button class="nav-link" id="ChangeUser-tab" data-bs-toggle="pill" data-bs-target="#ChangeUser" type="button">Cambiar Usuario</button> -->
             </div>
             <div class="tab-content permissions__deployment" id="v-pills-tabContent">
+
                 <div class="tab-pane fade show active" id="SearchUser">
                     <div class="SearchUser">
+
                         <form id="form__searchUser" name="formSearchUser" class="SearchUser__form">
-                            <fieldset class="form--fieldset">
-                                <div class="form--div">
-                                    <label></label>
+                            <fieldset>
+                                <div class="SearchUser__form-div">
+                                    <label for="input--SearchUser">Buscar usuarios</label>
                                     <div>
                                         <span>
                                             <i class="bi bi-search"></i>
@@ -25,38 +26,65 @@
 
                         <div class="SearchUser__search-tabs" id="div__SearchUsers-tab">
                             <h3>No se encuentran resultados</h3>
-                            <!-- <ul class="nav nav-pills mb-3 SearchUser__listPills" id="pills-tab">
-                                <li>
-                                    <button class="nav-link" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button">Home</button>
-                                </li>
-                                <li>
-                                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button">Profile</button>
-                                </li>
-                            </ul> -->
                         </div>
-
-                        <div class="tab-content" id="pills-tabContent">
-
-
-                            <!-- <div class="tab-pane fade" id="pills-home" role="tabpanel">
-                                b
-                            </div>
-                            <div class="tab-pane fade" id="pills-profile" role="tabpanel">
-                                a
-                            </div> -->
-                        </div>
+                    </div>
+                    <div class="tab-content SearchUser__userResult" id="SearchUser__userResult">
 
                     </div>
                 </div>
-                <div class="tab-pane fade enable permissions__deployment__enableJobcodes" id="EnableJobcodes">
 
-                </div>
-                <!-- <div class="tab-pane fade" id="ChangeUser">
-                    jejejeje
-                </div> -->
+                <div class="tab-pane fade enable permissions__deployment__enableJobcodes" id="EnableJobcodes">
+                    <span>Solicitudes de usuarios</span>
+                    <div class="enableJobcodes">
+                        <div class="enableJobcodes__scrollTabs">
+                            <ul class="nav nav-pills enableJobcodes__tab-list" id="enableJobcodes-tabList">
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div id="enableJobcodes-pill">
+
+                    </div>
+
             </div>
         </div>
     </div>
     <div class="toast--notification"></div>
+
+    <div class="modal fade" id="modifyPermissions" tabindex="-1" aria-labelledby="modifyPermissionsLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content SearchUser--modal">
+                <div class="modal-header SearchUser--modalHeader" id="SearchUser__modalHeader">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body SearchUser--modalBody" id="SearchUser__modalBody">
+                    <form id="form__modifyPermissions" name="form--modifyPermissions" class="form--modifyPermissions">
+                        <fieldset class="form--modifyPermissions__fieldset">
+                            <div class="fieldsetModifyPermissions-selectProfile">
+                                <label for="modifyPermissions-selectProfile">Perfil</label>
+                                <select class="form-select modifyPermissions__selectProfile" function="templateSelectClient"
+                                id="modifyPermissions-selectProfile" name="profile">
+
+                                </select>
+                            </div>
+                            <div class="modifyPermissions__selectClient" id="modifyPermissions--client">
+
+                            </div>
+                            <div class="modifyPermissions__selectManager" id="modifyPermissions--manager">
+
+                            </div>
+                            <div class="fieldsetmodifyPermissions__buttonsDiv">
+                                <button id="modifyPermissionsEnableButton" type="button" 
+                                class="fieldsetmodifyPermissions__button--enable" disabled>Habilitar usuario</button>
+                                <button id="modifyPermissionsDefusedButton" type="button" 
+                                class="fieldsetmodifyPermissions__button--refused">Rechazar Usuario</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <?php echo $searchRequest; ?>
 </main>

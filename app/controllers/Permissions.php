@@ -183,7 +183,8 @@ class Permissions extends controllers
                     foreach($searchResult as $key){
                             $template .= <<<EOD
                                 <li>
-                                    <button class="nav-link SearchUser__listPills-button" id='tabUser-{$key["id"]}' data-bs-toggle="pill" 
+                                    <button class="nav-link SearchUser__listPills-button" value='{$key["id"]}' 
+                                    id='tabUser-{$key["id"]}' function="searchUsersInfo" data-bs-toggle="pill" 
                                     type="button">{$key["name"]} claves: {$key["jobcode"]}</button>
                                 </li>
                             EOD;
@@ -203,6 +204,58 @@ class Permissions extends controllers
                 'warning',
                 MessageException::createMessage(
                     'Search Users error',
+                    $e->getMessage(),
+                    (int)$e->getCode(),
+                    get_class($e),
+                    $previous
+                )
+            );
+            http_response_code($e->getCode());
+        } finally {
+            echo json_encode($this->data->getdata());
+        }
+    }
+
+    public function searchUsersInfo(){
+        try {
+            $json = json_decode(file_get_contents('php://input'));
+            $searchResult = modelPermissions::searchUserInfo((int)$json[0]);
+            $infoTemplate = '';
+            foreach($searchResult as $key => $value){
+                if(!empty($value)){
+                    $infoTemplate .= <<<EOD
+                    <div class="SearchUser-divInfo">
+                        <span>{$key}:</span>
+                        <p>{$value}</p>
+                    </div>
+                EOD;
+                }
+            }
+            $templatepill = <<<EOD
+            <div class= "SearchUser__userResult__child">
+                <i class="bi bi-person-vcard"></i>
+                {$infoTemplate}
+                <form id="form__searchUser" name="form--searchUser" class="form--searchUser">
+                    <fieldset class="form--searchUser__fieldset fieldsetSearchUser">
+                        <div class="SearchUser__button enableUser__button">
+                            <button type="button" class="enableUser__button--enable" function="showModalModifyPermissions" 
+                            data-bs-toggle="modal" data-bs-target="#modifyPermissions">Modificar</button>
+                            <button type="button" class="enableUser__button--refused">Inhabilitar usuario</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+                
+            EOD;
+
+            $this->data->generateMessage('templatePills',$templatepill);
+            $this->data->generateMessage('userInfo',$searchResult);
+        } catch (Throwable $e) {
+            $previous = $e->getPrevious() ? $e->getPrevious()->getMessage() : '';
+            $this->data->generateMessage(
+                'warning',
+                MessageException::createMessage(
+                    'Search User Info error',
                     $e->getMessage(),
                     (int)$e->getCode(),
                     get_class($e),

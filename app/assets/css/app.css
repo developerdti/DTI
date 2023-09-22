@@ -968,43 +968,35 @@ template {
   margin-left: 1.5rem;
 }
 
-.form--enableUser {
+.enableUser__form {
   display: flex;
   justify-content: center;
   margin-top: 5rem;
 }
-.form--enableUser__fieldset {
-  background-color: #222D57;
-  color: #FFFFFF !important;
-  border: 0.1rem solid #222D57;
-  border-radius: 1.5rem;
-  width: max-content;
-}
-.form--enableUser button {
-  border-radius: 0.3rem;
-  background-color: rgba(77, 84, 112, 0);
-}
-
-.fieldsetPermission {
-  width: 40rem;
+.enableUser__fieldset {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  background-color: #222D57;
+  border: 0.1rem solid #222D57;
+  border-radius: 1.5rem;
+  color: #FFFFFF !important;
+  width: 40rem;
 }
-.fieldsetPermission select {
+.enableUser__fieldset select {
   font-size: 1.3rem;
   cursor: pointer;
 }
-.fieldsetPermission span {
+.enableUser__fieldset span {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.fieldsetPermission span i {
+.enableUser__fieldset span i {
   font-size: 4rem;
 }
-.fieldsetPermission__button {
+.enableUser__button {
   display: flex;
   gap: 2rem;
   justify-content: center;
@@ -1012,35 +1004,53 @@ template {
   margin-bottom: 1rem;
   font-size: 1.8rem;
 }
-.fieldsetPermission__button--enable {
-  padding: 0.5rem;
-  border: 0.1rem solid #198754;
-  color: #198754;
-}
-.fieldsetPermission__button--enable:hover {
-  color: #FFFFFF;
-  background-color: #198754;
-}
-.fieldsetPermission__button--enable:disabled {
-  border: 0.1rem solid #4D5470;
-  color: #4D5470;
-}
-.fieldsetPermission__button--enable:disabled:hover {
-  background-color: rgba(77, 84, 112, 0);
-  color: #4D5470;
-}
-.fieldsetPermission__button--refused {
-  padding: 0.5rem;
-  border: 0.1rem solid #dc3545;
-  color: #dc3545;
-}
-.fieldsetPermission__button--refused:hover {
-  color: #FFFFFF;
-  background-color: #dc3545;
-}
 
 .SearchUser {
   border-bottom: 0.1rem solid #000000;
+}
+.SearchUser fieldset {
+  padding: 0;
+}
+.SearchUser__form-div {
+  margin-bottom: 1rem;
+}
+.SearchUser__form-div div {
+  display: flex;
+  gap: 1rem;
+}
+.SearchUser__form-div div span {
+  margin: 0;
+}
+.SearchUser__userResult {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.SearchUser__userResult__child {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #222D57;
+  color: #FFFFFF !important;
+  border: 0.1rem solid #222D57;
+  border-radius: 1.5rem;
+  width: max-content;
+  padding: 2rem;
+  margin-top: 3rem;
+  gap: 1rem;
+}
+.SearchUser__userResult__child div {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 1rem;
+}
+.SearchUser__userResult__child span {
+  margin: 0;
+}
+.SearchUser__userResult__child i {
+  font-size: 4rem;
 }
 .SearchUser__search-tabs {
   overflow-y: auto;
@@ -1057,4 +1067,43 @@ template {
 .SearchUser i {
   font-size: 1.5rem;
   color: #4D5470;
+}
+.SearchUser__button {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.enableUser__button--enable {
+  border-radius: 0.3rem;
+  background-color: rgba(77, 84, 112, 0);
+  padding: 0.5rem;
+  border: 0.1rem solid #198754;
+  color: #198754;
+}
+.enableUser__button--enable:hover {
+  color: #FFFFFF;
+  background-color: #198754;
+}
+.enableUser__button--enable:disabled {
+  border: 0.1rem solid #4D5470;
+  color: #4D5470;
+}
+.enableUser__button--enable:disabled:hover {
+  background-color: rgba(77, 84, 112, 0);
+  color: #4D5470;
+}
+.enableUser__button--refused {
+  border-radius: 0.3rem;
+  background-color: rgba(77, 84, 112, 0);
+  padding: 0.5rem;
+  border: 0.1rem solid #dc3545;
+  color: #dc3545;
+}
+.enableUser__button--refused:hover {
+  color: #FFFFFF;
+  background-color: #dc3545;
 }

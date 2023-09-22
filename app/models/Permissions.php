@@ -89,7 +89,7 @@ class Permissions{
     {
         $stm = 
         "SELECT 
-            userP.id,concat(firstName,' ',lastName) as name
+            userI.id,concat(firstName,' ',lastName) as name
         FROM 
             [dbo].[userInfo] as userI
         LEFT JOIN 
@@ -249,6 +249,36 @@ class Permissions{
             "connection" => "server",
             "actions" => "search",
             "fetch" => "all"
+        ];
+
+        return DataBase::stmGenerator($stm,$config);
+    }
+
+    public static function searchUserInfo(int $id): array
+    {
+        $stm =
+        "SELECT 
+            CONCAT(lastName,' ',firstName,' ',secondName) as 'Nombre de usuario',
+            userp.jobCode as Claves,pro.name as Perfil,client.name as Cliente,client.clientGroup as Grupo
+        FROM 
+            [dbo].[userInfo] as userI
+        LEFT JOIN 
+            [dbo].[user] as userP ON (userI.userId = userP.id)
+        LEFT JOIN 
+            [dbo].[client] as client ON (userI.clientId = client.id)
+        LEFT JOIN 
+            [dbo].[profile] as pro ON (userP.profileId = pro.id)
+        WHERE 
+            userI.id = :id
+        ";
+
+        $config = [
+            "bindvalues"=> [
+                ":id"=> $id,
+                ],
+            "connection" => "server",
+            "actions" => "search",
+            "fetch" => "single"
         ];
 
         return DataBase::stmGenerator($stm,$config);
