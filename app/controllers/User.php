@@ -53,7 +53,7 @@ class User extends controllers
         $this->view->render('Navbar');
         $this->view->render('User');
         $this->view->render('Sidebar');
-        $this->view->render('Footer');
+        // $this->view->render('Footer');
         $this->view->render('ScriptElements');
     }
 

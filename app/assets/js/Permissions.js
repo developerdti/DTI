@@ -13,6 +13,21 @@ function callFunction() {
         'templateSelectClient': (id, apiName) => {
             templateSelectClient(id);
         },
+        'templateSelectManager': (id, apiName) => {
+            templateSelectManager(id);
+        },
+        'managerSelectedModifyPermissions': (id, apiName) => {
+            managerSelectedModifyPermissions(id);
+        },
+        'modifyJobcodePermissions': (id, apiName) => {
+            modifyJobcodePermissions(id,apiName);
+        },
+        'disableUser': (id, apiName) => {
+            disableUser(id,apiName);
+        },
+        'enableUser': (id, apiName) => {
+            enableUser(id,apiName);
+        },
         'enableJobcodeTemplatePills': (id, apiName) => {
             enableJobcodeTemplatePills(id);
         },
@@ -26,7 +41,7 @@ function callFunction() {
             managerSelected(id);
         },
         'showModalModifyPermissions': (id, apiName) => {
-            showModalModifyPermissions();
+            showModalModifyPermissions(id);
         },
         'enableJobcodes': (id, apiName) => {
             enableJobcodes(id, apiName);
@@ -134,7 +149,7 @@ function fetchApiWithForm(apiName, formData) {
             });
     });
 }
-/*Buscar usuarios*/
+/*----------------------------------------------Buscar usuarios----------------------------------------------*/
 function searchUser() {
     const searchForm = document.forms['form__searchUser'];
     const divSearchUserTab = document.getElementById('div__SearchUsers-tab');
@@ -164,36 +179,53 @@ async function searchUsersInfo(buttonId, apiName) {
     if (!data) {
         return
     }
+    console.log(data);
     pillSearchUserDiv.innerHTML = data.templatePills;
     userInfoSearch = data.userInfo;
 }
 
-function showModalModifyPermissions() {
-    const selectProfile = document.getElementById('modifyPermissions-selectProfile');
+function showModalModifyPermissions(buttonId) {
+    const 
+        modifyUserPermissionsButton = document.getElementById(buttonId),
+        selectProfile = document.getElementById('modifyPermissions-selectProfile'),
+        divSelectClient = document.getElementById(`modifyPermissions--client`),
+        divSelectManager = document.getElementById(`modifyPermissions--manager`),
+        divButtons = document.getElementById('fieldsetmodifyPermissions--buttonsDiv');
+        
     var options;
     request.profile.forEach((e) => {
         options += `
             <option value="${e['id']}">${e['name']}</option>
         `;
     });
+    divSelectClient.innerHTML = "";
+    divSelectManager.innerHTML = "";
+
+    divButtons.innerHTML = `
+        <input type="hidden" name="jobcode" value="${modifyUserPermissionsButton.value}">
+        <button id="modifyPermissionsEnableButton" value="${modifyUserPermissionsButton.value}" type="button" 
+        class="enableUser__button--enable" function="modifyJobcodePermissions" data-bs-dismiss="modal"
+        disabled>Modificar permisos</button>
+    `
     
     selectProfile.innerHTML = `
         <option selected>Elige...</option>
             ${options}
     `;
 }
+
 function templateSelectClient(selectId){
     const
         selectProfile = document.getElementById(selectId),
         divSelectClient = document.getElementById(`modifyPermissions--client`),
-        buttonEnableUser = document.getElementById(`modifyPermissionsEnableButton`),
-        divSelectManager = document.getElementById(`modifyPermissions--manager`);
+        divSelectManager = document.getElementById(`modifyPermissions--manager`),
+        buttonModifyPermissions = document.getElementById(`modifyPermissionsEnableButton`);
 
     var optionsClient, selectClient,
         profile = request.profile.find((e) => e.id === selectProfile.value);
 
     if (selectProfile.value === "Elige...") {
-        buttonEnableUser.disabled = true;
+        buttonModifyPermissions.disabled = true;
         divSelectClient.innerHTML = "";
         divSelectManager.innerHTML = "";
         return;
@@ -206,7 +238,7 @@ function templateSelectClient(selectId){
         });
         selectClient = `
             <label class="" for="modifyPermissions--selectClient">Cliente</label>
-            <select id="modifyPermissions--selectClient" function=""
+            <select id="modifyPermissions--selectClient" function="templateSelectManager"
             class="form-select modifyPermissions__selectClient" name="Client">
                 <option selected>Elige...</option>
                     ${optionsClient}
@@ -214,15 +246,98 @@ function templateSelectClient(selectId){
         `;
         divSelectClient.innerHTML = selectClient;
         divSelectManager.innerHTML = "";
-        buttonEnableUser.disabled = true;
+        buttonModifyPermissions.disabled = true;
         return;
     }
 
     divSelectClient.innerHTML = "";
     divSelectManager.innerHTML = "";
-    buttonEnableUser.disabled = false;
+    buttonModifyPermissions.disabled = false;
 }
-/*habilitar claves*/
+
+async function templateSelectManager(selectId){
+    const
+        selectClient = document.getElementById(selectId),
+        selectProfile = document.getElementById('modifyPermissions-selectProfile'),
+        buttonModifyPermissionsUser = document.getElementById(`modifyPermissionsEnableButton`),
+        divSelectManager = document.getElementById(`modifyPermissions--manager`),
+        formData = document.forms['form__modifyPermissions'];
+    var selectManagers, optionsManager;
+
+    if (selectClient.value === "Elige...") {
+        buttonModifyPermissionsUser.disabled = true;
+        return;
+    }
+    var profilevalid = request.profile.find((e) => e.id === selectProfile.value);
+    if (!("needsmanager" in profilevalid)) {
+        buttonModifyPermissionsUser.disabled = false;
+        return;
+    }
+    var data = await fetchApiWithForm('getManager',formData);
+    if (!data) {
+        divSelectManager.innerHTML = "";
+        buttonModifyPermissionsUser.disabled = true;
+        return;
+    }
+
+    data['managers'].forEach((key) => {
+        optionsManager += `
+            <option value="${key["id"]}">${key["name"]}</option>
+        `;
+    });
+    selectManagers = `
+        <label class="" for="modifyPermissions--selectManager">Supervisor</label>
+        <select class="form-select modifyPermissions__selectManager"  function="managerSelectedModifyPermissions"
+        name="Manager" id="modifyPermissions--selectManager">
+        <option selected>Elige...</option>
+            ${optionsManager}
+        </select>
+    `;
+    divSelectManager.innerHTML = selectManagers;
+}
+
+function managerSelectedModifyPermissions(selectId) {
+    const
+        buttonModifyPermissionsUser = document.getElementById(`modifyPermissionsEnableButton`),
+        selectManager = document.getElementById(selectId);
+
+    if (selectManager.value === "Elige...") {
+        buttonModifyPermissionsUser.disabled = true;
+        return;
+    }
+    buttonModifyPermissionsUser.disabled = false;
+}
+async function modifyJobcodePermissions(buttonid, apiName) {
+    const formData = document.forms['form__modifyPermissions'];
+    var data = await fetchApiWithForm(apiName, formData);
+    if (!data) {
+        return;
+    }
+
+    searchUsersInfo(buttonid,'searchUsersInfo')
+}
+
+async function disableUser(buttonid,apiName){
+    const disableUserButton = document.getElementById(buttonid);
+    const rowData = [disableUserButton.value];
+    var data = await fetchApiWithContent(apiName, rowData);
+    if (!data) {
+        return
+    }
+
+    searchUsersInfo(buttonid,'searchUsersInfo')
+}
+async function enableUser(buttonid,apiName){
+    const disableUserButton = document.getElementById(buttonid);
+    const rowData = [disableUserButton.value];
+    var data = await fetchApiWithContent(apiName, rowData);
+    if (!data) {
+        return
+    }
+
+    searchUsersInfo(buttonid,'searchUsersInfo')
+}
+/*---------------------------------------------habilitar claves-----------------------------------------------*/
 function enableJobcodestemplate() {
     let listTabs = "";
 
@@ -372,7 +487,6 @@ async function getManager(apiName) {
         </select>
     `;
     divSelectManager.innerHTML = selectManagers;
-
 }
 
 function managerSelected(selectId) {

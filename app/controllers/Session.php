@@ -112,6 +112,9 @@ class Session extends controllers
         if (empty($this->session)) {
             throw new LoginResponseException("Las claves {$formData['username']} no estan registradas", 422);
         }
+        if ($this->session['status'] === '0'){
+            throw new LoginResponseException("Las claves {$formData['username']} estan inactivas", 422);
+        }
     }
 
     /**

@@ -44,7 +44,7 @@ class Main extends controllers{
         $this->view->render('Navbar');
         $this->view->render('Main');
         $this->view->render('Sidebar');
-        $this->view->render('Footer');
+        // $this->view->render('Footer');
         $this->view->render('ScriptElements');
     }
 }

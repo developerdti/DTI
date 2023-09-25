@@ -183,7 +183,7 @@ class Permissions extends controllers
                     foreach($searchResult as $key){
                             $template .= <<<EOD
                                 <li>
-                                    <button class="nav-link SearchUser__listPills-button" value='{$key["id"]}' 
+                                    <button class="nav-link SearchUser__listPills-button" value='{$key["jobcode"]}' 
                                     id='tabUser-{$key["id"]}' function="searchUsersInfo" data-bs-toggle="pill" 
                                     type="button">{$key["name"]} claves: {$key["jobcode"]}</button>
                                 </li>
@@ -219,17 +219,31 @@ class Permissions extends controllers
     public function searchUsersInfo(){
         try {
             $json = json_decode(file_get_contents('php://input'));
-            $searchResult = modelPermissions::searchUserInfo((int)$json[0]);
+            $searchResult = modelPermissions::searchUserInfo($json[0]);
             $infoTemplate = '';
             foreach($searchResult as $key => $value){
+
                 if(!empty($value)){
-                    $infoTemplate .= <<<EOD
-                    <div class="SearchUser-divInfo">
-                        <span>{$key}:</span>
-                        <p>{$value}</p>
-                    </div>
-                EOD;
+                    if(!($key === 'status')){
+                        $infoTemplate .= <<<EOD
+                        <div class="SearchUser-divInfo">
+                            <span>{$key}:</span>
+                            <p>{$value}</p>
+                        </div>
+                    EOD;
+                    }
                 }
+            }
+            if($searchResult["status"] === '1'){
+                $button = <<<EOD
+                <button type="button" class="enableUser__button--refused" id="disableUserPermission--button" 
+                value="{$searchResult["Claves"]}" function="disableUser">Inhabilitar usuario</button>
+                EOD;
+            }else{
+                $button = <<<EOD
+                <button type="button" class="enableUser__button--enable" id="disableUserPermission--button" 
+                value="{$searchResult["Claves"]}" function="enableUser">habilitar Usuario</button>
+                EOD;
             }
             $templatepill = <<<EOD
             <div class= "SearchUser__userResult__child">
@@ -238,9 +252,10 @@ class Permissions extends controllers
                 <form id="form__searchUser" name="form--searchUser" class="form--searchUser">
                     <fieldset class="form--searchUser__fieldset fieldsetSearchUser">
                         <div class="SearchUser__button enableUser__button">
-                            <button type="button" class="enableUser__button--enable" function="showModalModifyPermissions" 
-                            data-bs-toggle="modal" data-bs-target="#modifyPermissions">Modificar</button>
-                            <button type="button" class="enableUser__button--refused">Inhabilitar usuario</button>
+                            <button type="button" class="enableUser__button--enable" id="modifyUserPermission--button" 
+                            value="{$searchResult["Claves"]}" function="showModalModifyPermissions" data-bs-toggle="modal" 
+                            data-bs-target="#modifyPermissions">Modificar</button>
+                            {$button}
                         </div>
                     </fieldset>
                 </form>
@@ -267,5 +282,75 @@ class Permissions extends controllers
             echo json_encode($this->data->getdata());
         }
     }
+    public function modifyJobcodePermissions(){
+        try {
+            modelPermissions::modifyUser($_POST);
+            modelPermissions::modifyUserInfo($_POST);
+            $this->data->generateMessage('templateTab',$_POST);
+        } catch (Throwable $e) {
+            $previous = $e->getPrevious() ? $e->getPrevious()->getMessage() : '';
+            $this->data->generateMessage(
+                'warning',
+                MessageException::createMessage(
+                    'modify Jobcode Permissions error',
+                    $e->getMessage(),
+                    (int)$e->getCode(),
+                    get_class($e),
+                    $previous
+                )
+            );
+            http_response_code($e->getCode());
+        } finally {
+            echo json_encode($this->data->getdata());
+        }
+    }
+
+    public function disableUser(){
+        try {
+            $json = json_decode(file_get_contents('php://input'));
+            modelPermissions::disableUser($json[0]);
+
+            $this->data->generateMessage('Success','Claves inactivadas');
+        } catch (Throwable $e) {
+            $previous = $e->getPrevious() ? $e->getPrevious()->getMessage() : '';
+            $this->data->generateMessage(
+                'warning',
+                MessageException::createMessage(
+                    'Disable User Permissions error',
+                    $e->getMessage(),
+                    (int)$e->getCode(),
+                    get_class($e),
+                    $previous
+                )
+            );
+            http_response_code($e->getCode());
+        } finally {
+            echo json_encode($this->data->getdata());
+        }
+    }
+    public function enableUser(){
+        try {
+            $json = json_decode(file_get_contents('php://input'));
+            modelPermissions::activeUser($json[0]);
+
+            $this->data->generateMessage('Success','Claves activadas');
+        } catch (Throwable $e) {
+            $previous = $e->getPrevious() ? $e->getPrevious()->getMessage() : '';
+            $this->data->generateMessage(
+                'warning',
+                MessageException::createMessage(
+                    'Disable User Permissions error',
+                    $e->getMessage(),
+                    (int)$e->getCode(),
+                    get_class($e),
+                    $previous
+                )
+            );
+            http_response_code($e->getCode());
+        } finally {
+            echo json_encode($this->data->getdata());
+        }
+    }
 }
+
 

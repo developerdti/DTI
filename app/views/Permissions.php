@@ -53,14 +53,14 @@
 
     <div class="modal fade" id="modifyPermissions" tabindex="-1" aria-labelledby="modifyPermissionsLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content SearchUser--modal">
-                <div class="modal-header SearchUser--modalHeader" id="SearchUser__modalHeader">
+            <div class="modal-content modifyPermissions--modal">
+                <div class="modal-header modifyPermissions--modalHeader" id="modifyPermissions__modalHeader">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body SearchUser--modalBody" id="SearchUser__modalBody">
-                    <form id="form__modifyPermissions" name="form--modifyPermissions" class="form--modifyPermissions">
-                        <fieldset class="form--modifyPermissions__fieldset">
-                            <div class="fieldsetModifyPermissions-selectProfile">
+                <div class="modal-body modifyPermissions__modalBody" id="modifyPermissions__modalBody">
+                    <form id="form__modifyPermissions" name="form--modifyPermissions" class="modifyPermissions__form">
+                        <fieldset class="modifyPermissions__fieldset">
+                            <div class="modifyPermissions__selectProfile">
                                 <label for="modifyPermissions-selectProfile">Perfil</label>
                                 <select class="form-select modifyPermissions__selectProfile" function="templateSelectClient"
                                 id="modifyPermissions-selectProfile" name="profile">
@@ -73,11 +73,7 @@
                             <div class="modifyPermissions__selectManager" id="modifyPermissions--manager">
 
                             </div>
-                            <div class="fieldsetmodifyPermissions__buttonsDiv">
-                                <button id="modifyPermissionsEnableButton" type="button" 
-                                class="fieldsetmodifyPermissions__button--enable" disabled>Habilitar usuario</button>
-                                <button id="modifyPermissionsDefusedButton" type="button" 
-                                class="fieldsetmodifyPermissions__button--refused">Rechazar Usuario</button>
+                            <div class="modifyPermissions__buttonsDiv" id="fieldsetmodifyPermissions--buttonsDiv">
                             </div>
                         </fieldset>
                     </form>

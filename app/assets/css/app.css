@@ -675,33 +675,33 @@ template {
   margin-bottom: 1rem;
 }
 
-.modal-body td {
+.schedule__modalBody td {
   max-height: 13.5rem;
   min-width: max-content;
   color: #717BA3;
 }
-.modal-body i {
+.schedule__modalBody i {
   font-size: 1rem;
 }
-.modal-body input {
+.schedule__modalBody input {
   cursor: pointer;
   background-color: rgba(77, 84, 112, 0);
   border-style: none;
   width: 12rem;
   padding: 0;
 }
-.modal-body input:disabled {
+.schedule__modalBody input:disabled {
   color: #717BA3;
   opacity: 1;
 }
-.modal-body input:enabled {
+.schedule__modalBody input:enabled {
   border: none;
 }
-.modal-body input:focus {
+.schedule__modalBody input:focus {
   border: none;
   outline: none;
 }
-.modal-body select {
+.schedule__modalBody select {
   background-color: rgba(255, 255, 255, 0);
   cursor: pointer;
   position: relative;
@@ -709,14 +709,14 @@ template {
   border: none;
   width: max-content;
 }
-.modal-body select option {
+.schedule__modalBody select option {
   background-color: #4D5470;
   color: #FFFFFF;
 }
-.modal-body select option:hover {
+.schedule__modalBody select option:hover {
   background-color: #717BA3;
 }
-.modal-body select:disabled {
+.schedule__modalBody select:disabled {
   color: #717BA3;
   opacity: 1;
 }
@@ -1106,4 +1106,12 @@ template {
 .enableUser__button--refused:hover {
   color: #FFFFFF;
   background-color: #dc3545;
+}
+
+.modifyPermissions__buttonsDiv {
+  display: flex;
+  margin-top: 1.5rem;
+}
+.modifyPermissions__buttonsDiv button {
+  width: 100% !important;
 }
