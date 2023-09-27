@@ -15,6 +15,7 @@ class Session{
                     profileId,
                     userI.isActive as isActive,
                     userp.firstName as firstName,
+                    userp.secondName as secondName,
                     userp.lastName as lastName,
                     clientGroup,
                     pro.kind as kind
