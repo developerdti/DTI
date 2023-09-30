@@ -1,0 +1,88 @@
+@use 'base/variables' as v;
+
+.collapseDashboard{
+    margin-top: 3rem;
+    display: flex;
+    gap: 1rem;
+    &__navPills{
+        display: flex;
+        gap: 1.5rem;
+        min-width: 10rem;
+        max-width: 20%;
+        height: max-content;
+        button{
+            display: flex;
+            justify-content: center;
+            padding: 1rem;
+            border-radius: 1rem;
+        }
+    }
+    &__deployment{
+        width: 100%;
+        &-div{
+            padding: 1.5rem;
+            border: 0.1rem solid v.$pantonelight;
+            border-radius: 1rem;
+        }
+        img{
+            width: 100%;
+            max-width: 15rem;
+            object-fit: contain;
+        }
+    }
+    
+    &__deployment-header{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+    }
+    &__divImage{
+        position: relative;
+        min-width: max-content;
+        height: max-content;
+        border: v.$pantonelight solid 0.1rem;
+        border-radius: 1rem;
+        padding: 1rem;
+        i{
+            font-size: 2rem;
+        }
+        button{
+            position: absolute;
+            top: -1rem;
+            left: 90%;
+            border: 0.1rem solid v.$pantoneDark;
+            border-radius:round($number: 100rem);
+            background-color: v.$pantoneDark;
+            color: v.$white;
+            padding: 0;
+        }
+    }
+
+    &__form{
+        fieldset{
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        i{
+            color: v.$pantoneDark;
+            font-size: 1.5rem;
+        }
+    }
+
+    &__buttons{
+        button{
+            display: flex;
+            justify-content: center;
+            padding: 1rem;
+            border-radius: 1rem;
+        }
+    }
+}
+
+
+.displayNone{
+    display: none;
+}

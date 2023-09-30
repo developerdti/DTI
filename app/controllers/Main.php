@@ -54,7 +54,7 @@ class Main extends controllers{
         $sectionTemplate = '';
         
         $rut = IMAGE_PATH;
-        $section = modelMain::sectionInfo($group,$kind);
+        $section = modelMain::sectionInfo($group);
         if(empty($section)){
             return 'errors';
         } 

@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     enableJobcodestemplate();
     searchUser();
     callFunction();
-    console.log(request);
+    // console.log(request);
 });
 
 function callFunction() {

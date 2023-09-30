@@ -5,7 +5,7 @@ namespace app\models;
 
 class Main{
 
-    public static function sectionInfo(string|null $group, int $kind): array
+    public static function sectionInfo(string|null $group): array
     {
         $stm =
         "SELECT
@@ -13,13 +13,12 @@ class Main{
         FROM 
             dashboard
         where
-            clientGroup = :group AND kind = :kind
+            clientGroup = :group
         ";
 
         $config = [
             "bindvalues"=> [
-                ":group"=> $group ?? '',
-                ":kind"=> $kind ?? ''
+                ":group"=> $group ?? ''
                 ],
             "connection" => "server",
             "actions" => "search",
