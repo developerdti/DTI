@@ -46,6 +46,7 @@ class Main extends controllers{
         $this->view->render('Navbar');
         $this->view->render('Main');
         $this->view->render('Sidebar');
+        $this->view->render('Footer');
         $this->view->render('ScriptElements');
     }
 
@@ -64,10 +65,13 @@ class Main extends controllers{
             foreach($imageButton as $img){
                 $imgDescription = $img['description'] ? '<h4>'.$img['description'].'</h4>': '';
                 $image .= <<<EOD
-                    <button type="button" class="btn Button__imageModal" data-bs-toggle="modal" data-bs-target="#imageModal">
-                        {$imgDescription}
-                        <img src="{$rut}/{$key['location']}/{$img['name']}" alt="{$img['name']}">
-                    </button>
+                    <div class="buttonImageShow">
+                    {$imgDescription}
+                        <button type="button" class="btn Button__imageModal" data-bs-toggle="modal" data-bs-target="#imageModal">
+                            <img src="{$rut}/{$key['location']}/{$img['name']}" alt="{$img['name']}">
+                        </button>                    
+                    </div>
+
                 EOD;
             }
             $sectionTemplate .= <<<EOD

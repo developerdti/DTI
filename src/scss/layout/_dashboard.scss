@@ -47,16 +47,23 @@
         padding: 1rem;
         i{
             font-size: 2rem;
+            color: v.$danger;
         }
         button{
             position: absolute;
             top: -1rem;
             left: 90%;
-            border: 0.1rem solid v.$pantoneDark;
+            border: 0.1rem solid v.$danger;
             border-radius:round($number: 100rem);
-            background-color: v.$pantoneDark;
-            color: v.$white;
+            background-color: v.$white;
             padding: 0;
+            &:hover{
+                background-color: v.$danger;
+                color: v.$white;
+                i{
+                    color: v.$white;
+                }
+            }
         }
     }
 
@@ -73,14 +80,26 @@
     }
 
     &__buttons{
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        width: max-content;
         button{
-            display: flex;
-            justify-content: center;
-            padding: 1rem;
+            text-align: center;
+            width: max-content;
+            background-color: transparent;
+            color: v.$success;
+            border: 0.1rem solid v.$success;
             border-radius: 1rem;
+            padding: 1rem;
+            &:hover{
+                background-color: v.$success;
+                color: v.$white;
+            }
         }
     }
 }
+
 
 
 .displayNone{

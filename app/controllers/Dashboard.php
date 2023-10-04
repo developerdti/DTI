@@ -174,8 +174,8 @@ class Dashboard extends controllers{
                             </label>
                         </div>
                         <div class="collapseDashboard__buttons">
-                            <button type="button" class="button--collapseDashboard" id="button__collapseDashboard">Subir imagen</button>
-                            <button type="button" class="button--collapseDashboard" id="button__deleteImage">Eliminar imagen</button>
+                            <button type="button" class="collapseDashboard__buttons--upload" id="button__collapseDashboard">Subir imagen</button>
+                            <button type="button" class="collapseDashboard__buttons--del" id="button__deleteImage">Eliminar imagen</button>
                         </div>
                     </fieldset>
                 </form>

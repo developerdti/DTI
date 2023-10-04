@@ -1,5 +1,6 @@
 @use 'base/variables' as v;
 
+
 #imageContainerModal{
   img{
     width: 100%;
@@ -14,6 +15,7 @@
   border-bottom: 0.1rem solid v.$pantonelight;
   margin-top: 5rem;
   width: auto;
+
 }
 
 .scroll{
@@ -60,3 +62,12 @@
   }
 }
 
+.buttonImageShow{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h4{
+    text-align: center;
+  }
+}

@@ -1,0 +1,15 @@
+@use 'variables' as v;
+
+
+
+.button-success{
+    background-color: transparent;
+    color: v.$success;
+        border: 0.1rem solid v.$success;
+        border-radius: 1rem;
+        padding: 1rem;
+        &:hover{
+            background-color: v.$success;
+            color: v.$white;
+        }
+}
