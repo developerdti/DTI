@@ -384,8 +384,14 @@ template {
   border-radius: 1rem;
   padding: 1rem;
 }
+.button-success i {
+  color: #198754;
+}
 .button-success:hover {
   background-color: #198754;
+  color: #FFFFFF;
+}
+.button-success:hover i {
   color: #FFFFFF;
 }
 .button-success:disabled {
@@ -404,8 +410,14 @@ template {
   border-radius: 1rem;
   padding: 1rem;
 }
+.button-danger i {
+  color: #dc3545;
+}
 .button-danger:hover {
   background-color: #dc3545;
+  color: #FFFFFF;
+}
+.button-danger:hover i {
   color: #FFFFFF;
 }
 .button-danger:disabled {
@@ -1349,28 +1361,31 @@ template {
   background-color: #222D57;
   padding: 1rem;
 }
+.productivity i {
+  font-size: 2rem;
+}
 .productivity__container {
   margin-top: 3rem;
-}
-.productivity i {
-  color: #222D57;
-  font-size: 3rem;
 }
 .productivity__fieldset {
   padding: 0;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   gap: 2rem;
 }
 .productivity__fieldset div {
   margin: 0 !important;
 }
-.productivity__markingInputDiv {
-  width: 80%;
+.productivity__markingInputDiv i {
+  color: #0dcaf0;
 }
 .productivity__buttons {
   display: flex;
-  align-items: center;
+  gap: 1rem;
+}
+.productivity__buttons button {
+  display: flex;
   justify-content: center;
-  width: 20%;
+  align-items: center;
 }

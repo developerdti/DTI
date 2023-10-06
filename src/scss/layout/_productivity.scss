@@ -3,31 +3,38 @@
 .productivity{
     background-color: v.$pantoneDark;
     padding: 1rem;
+    i{
+        font-size: 2rem;  
+    }
     &__container{
         margin-top: 3rem;
     }
-    i{
-        color: v.$pantoneDark;
-        font-size: 3rem;
-    }
+    
 
     &__fieldset{
         padding: 0;
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        justify-content: center;
         gap: 2rem;
             div{
                 margin: 0 !important;
             }
     }
     &__markingInputDiv{
-        width: 80%;
+        i{
+            color: v.$info;
+        }
     }
     &__buttons{
         display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 20%;
+        gap: 1rem;
+        button{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }    
     }
+
 }
 

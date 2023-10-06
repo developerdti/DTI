@@ -8,21 +8,21 @@
                 <fieldset class="productivity__fieldset">
                     <div class="productivity__markingInputDiv">
                         <div class="input-group mb-3">
-                            <label class="input-group-text" for="layout--File"><i class="bi bi-file-earmark-plus-fill"></i></label>
-                            <input type="file" name="manualMarkingFile" class="form-control" id="layout--File">
+                            <label class="input-group-text" for="layout--File"><i class="bi bi-filetype-csv"></i></label>
+                            <input type="file" name="manualMarkingFile" class="form-control fs-2" id="layout--File">
                         </div>
                     </div>
 
                     <div class="productivity__buttons">
-                        <button type="button" class="productivity__buttons--send button-success">Enviar folio</button>
+                        <button type="button" class="button-success" id="productivity-addFile">
+                            <i class="bi bi-file-earmark-plus-fill"></i> Subir Archivo
+                        </button>
+                        <button type="button" class="button-danger" id="productivity-delFile">
+                            <i class="bi bi-file-minus-fill"></i> Eliminar Archivo
+                        </button>
                     </div>
-
                 </fieldset>
             </form>
-            <div class="productivity__fileDiv">
-                <i class="bi bi-filetype-csv"></i>
-                <button type="button" class="deleteFile__button button-success">Eliminar Archivo</button>
-            </div>
         </div>
 
     </div>

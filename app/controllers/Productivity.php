@@ -65,7 +65,9 @@ class Productivity extends controllers{
             $this->data->generateStatusMessage('status', 'manualMarkingFile', ['message' => 'correcto', 'status' => 'valid']);
 
             if(empty($_FILES['manualMarkingFile']['size'])){
-                $this->data->generateStatusMessage('status', 'manualMarkingFile', ['message' => 'Archivo Vacio', 'status' => 'invalid']);
+                $this->data->generateStatusMessage('status', 'manualMarkingFile', 
+                    ['message' => 'LLENAR CAMPO OBLIGATORIO', 
+                    'status' => 'invalid']);
                 $error = true;
             }
             
@@ -122,4 +124,38 @@ class Productivity extends controllers{
 
         return $file;
     } 
+
+    public function delMarkingFile(){
+        try {
+
+            $idSupervisorReference = modelProductivity::getSupervisorReference($_SESSION['jobcode'],$_SESSION['group']);
+            if(empty($idSupervisorReference)){
+                throw new ProductivityException("No hay archivo cargado", 428);                
+            }
+
+            modelProductivity::deleteManualDialingFile((int) $idSupervisorReference['id']);
+            modelProductivity::deactivateSupervisroReference((int) $idSupervisorReference['id']);
+
+            $this->data->generateMessage(
+                'exito',
+                ['title' => 'Carga exitosa', 'message' => 'Archivo Eliminado']
+            );
+        } catch (Throwable $e) {
+            $previous = $e->getPrevious() ? $e->getPrevious()->getMessage() : '';
+            $this->data->generateMessage(
+                'warning',
+                MessageException::createMessage(
+                    'Del Marking File Error',
+                    $e->getMessage(),
+                    (int)$e->getCode(),
+                    get_class($e),
+                    $previous
+                )
+            );
+            http_response_code($e->getCode());
+        } finally {
+            echo json_encode($this->data->getdata());
+        }
+    }
+
 }

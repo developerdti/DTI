@@ -94,4 +94,50 @@ class Productivity{
         ];
         return DataBase::stmGenerator($stm,$config);
     }
+
+    static public function deactivateSupervisroReference(int $id): void
+    {
+        $stm =
+        "UPDATE 
+            manualDialingList 
+        SET 
+            isActive = 0
+        WHERE 
+            id = :id
+        ";
+
+        $config = [
+            "bindvalues"=> [
+                ":id"=> $id
+                ],
+            "connection" => "server",
+            "actions" => "modify"
+        ];
+
+        DataBase::stmGenerator($stm,$config);
+    }
+
+    static public function deleteManualDialingFile(int $id): void
+    {
+        $stm =
+        "DELETE 
+            listI 
+        FROM 
+            manualDialingListInfo listI
+        left join 
+            manualDialingList list ON (list.id = listI.infoId)
+        WHERE 
+            list.id = :id
+        ";
+
+        $config = [
+            "bindvalues"=> [
+                ":id"=> $id
+                ],
+            "connection" => "server",
+            "actions" => "modify"
+        ];
+
+        DataBase::stmGenerator($stm,$config);
+    }
 }

@@ -8,9 +8,15 @@
     border: 0.1rem solid v.$success;
     border-radius: 1rem;
     padding: 1rem;
+    i{
+        color: v.$success;
+    }
         &:hover{
             background-color: v.$success;
             color: v.$white;
+            i{
+                color: v.$white;
+            }
         }
         &:disabled{
             border: 0.1rem solid v.$pantone;
@@ -28,9 +34,15 @@
     border: 0.1rem solid v.$danger;
     border-radius: 1rem;
     padding: 1rem;
+    i{
+        color: v.$danger;
+    }
         &:hover{
             background-color: v.$danger;
             color: v.$white;
+            i{
+                color: v.$white;
+            }
         }
         &:disabled{
             border: 0.1rem solid v.$pantone;

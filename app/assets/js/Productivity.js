@@ -1,6 +1,10 @@
 document.addEventListener('DOMContentLoaded', e =>{
-    $(document).on('click','button[class~="productivity__buttons--send"]',function (e){
+    $(document).on('click','#productivity-addFile',function (e){
         addMarkingFile();
+    });
+
+    $(document).on('click','#productivity-delFile',function (e){
+        delMarkingFile();
     });
 });
 
@@ -84,6 +88,16 @@ async function addMarkingFile(){
     import("./helper.min.js").then((module) => {
       module.buildWarning(data.status);
     });
+    import("./helper.min.js").then((module) => {
+      module.buildToastSuccess(data.exito.title, data.exito.message);
+    });
+}
+
+async function delMarkingFile(){
+    const info = [];
+    const data = await fetchApiWithContent('delMarkingFile', info);
+    if (!data) return;
+    
     import("./helper.min.js").then((module) => {
       module.buildToastSuccess(data.exito.title, data.exito.message);
     });
