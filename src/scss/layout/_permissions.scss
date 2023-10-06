@@ -180,45 +180,7 @@
     }
 }
 
-.enableUser__button{
-    &--enable{
-        border-radius: 0.3rem;
-        background-color: rgb(77, 84, 112, 0);
-        padding: 0.5rem;
-        border: 0.1rem solid v.$success;
-        color: v.$success;  
-        &:hover{
-            color: v.$white;
-            background-color: v.$success;
-        }
-        &:disabled{
-            border: 0.1rem solid v.$pantone;
-            color: v.$pantone;
-            &:hover{
-                background-color: rgb(77, 84, 112, 0);
-                color: v.$pantone;
-            }   
-        }
-    }
-    &--refused{
-        border-radius: 0.3rem;
-        background-color: rgb(77, 84, 112, 0);
-        padding: 0.5rem;
-        border: 0.1rem solid v.$danger;
-        color: v.$danger;
-        &:hover{
-            color: v.$white;
-            background-color: v.$danger;
-        }
-    }
-}
-
-
 .modifyPermissions{
-    // &__modalBody{
-    //     // background-color: v.$pantoneDark;
-    //     // color: v.$white;
-    // }
     &__buttonsDiv{
         display: flex;
         margin-top: 1.5rem;

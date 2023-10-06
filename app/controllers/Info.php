@@ -3,9 +3,9 @@
 
 DB();
     function DB(){
-        $db_username = 'RCVRY'; 
-        $db_password = 'CR3c0V3ryS3rt3C2018'; 
-        $db_hostname = '192.168.90.29';
+        $db_username = 'rcvry'; 
+        $db_password = 'PR3c0V3ryS3rt3C2018'; 
+        $db_hostname = '192.168.90.10';
         $db_port = 1521; 
         $db_service_name = 'sertecp';
         $db_name = "

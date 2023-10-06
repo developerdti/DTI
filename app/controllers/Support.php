@@ -57,4 +57,5 @@ class Support{
 
         return $string;
     } 
+
 }

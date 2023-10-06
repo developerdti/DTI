@@ -236,12 +236,12 @@ class Permissions extends controllers
             }
             if($searchResult["status"] === '1'){
                 $button = <<<EOD
-                <button type="button" class="enableUser__button--refused" id="disableUserPermission--button" 
+                <button type="button" class="button-danger" id="disableUserPermission--button" 
                 value="{$searchResult["Claves"]}" function="disableUser">Inhabilitar usuario</button>
                 EOD;
             }else{
                 $button = <<<EOD
-                <button type="button" class="enableUser__button--enable" id="disableUserPermission--button" 
+                <button type="button" class="button-success" id="disableUserPermission--button" 
                 value="{$searchResult["Claves"]}" function="enableUser">habilitar Usuario</button>
                 EOD;
             }
@@ -251,8 +251,8 @@ class Permissions extends controllers
                 {$infoTemplate}
                 <form id="form__searchUser" name="form--searchUser" class="form--searchUser">
                     <fieldset class="form--searchUser__fieldset fieldsetSearchUser">
-                        <div class="SearchUser__button enableUser__button">
-                            <button type="button" class="enableUser__button--enable" id="modifyUserPermission--button" 
+                        <div class="SearchUser__button">
+                            <button type="button" class="button-success" id="modifyUserPermission--button" 
                             value="{$searchResult["Claves"]}" function="showModalModifyPermissions" data-bs-toggle="modal" 
                             data-bs-target="#modifyPermissions">Modificar</button>
                             {$button}
@@ -282,6 +282,7 @@ class Permissions extends controllers
             echo json_encode($this->data->getdata());
         }
     }
+
     public function modifyJobcodePermissions(){
         try {
             modelPermissions::modifyUser($_POST);
@@ -328,6 +329,7 @@ class Permissions extends controllers
             echo json_encode($this->data->getdata());
         }
     }
+    
     public function enableUser(){
         try {
             $json = json_decode(file_get_contents('php://input'));

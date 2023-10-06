@@ -47,7 +47,8 @@ class Tracking extends controllers{
         if(empty($_SESSION)){
             header('location: Session');
         }
-        $this->view->set('folioTemplate',self::templateTrackingTable($_SESSION['jobcode']));
+        $this->view->set('folioTemplate',self::templateTrackingTable());
+        $this->view->set('manualDailingTemplate',self::templateManualDailing());
         $this->view->set('sidebar',Sidebar::creatSidebar($_SESSION['kind'],$_SESSION['group']));
         $this->view->set('filejs','Tracking');
         $this->view->set('name',$_SESSION['name']);
@@ -58,10 +59,38 @@ class Tracking extends controllers{
         $this->view->render('ScriptElements');
     }
 
-    static public function templateTrackingTable($jobcode){
+    
+
+    static public function templateManualDailing(){
         $template = '';
         $i = 1;
-        $folioTracking = modelTracking::getTrackingFolio($jobcode);
+
+        $jobcodeSuper = modelTracking::getManagerJobcode($_SESSION['jobcode']);
+        $ManualDailing = modelTracking::getmanualDialing($_SESSION['jobcode'],(int)$_SESSION['group'],$jobcodeSuper['jobcode']);
+
+        if(empty($ManualDailing)) return $template;
+
+        foreach($ManualDailing as $key){
+            $status = empty($key['status']) ? 'Pendiente' : 'Resuelta';
+            $template .= <<<EOD
+            <tr>
+                <th scope="#">{$i}</th>
+                <td>{$key['folio']}</td>
+                <td>{$key['clientKey']}</td>
+                <td>{$key['markingDate']}</td>
+                <td>{$key['petition']}</td>
+            </tr>
+        EOD;
+        $i++;
+        }
+
+        return $template;
+    }
+
+    static public function templateTrackingTable(){
+        $template = '';
+        $i = 1;
+        $folioTracking = modelTracking::getTrackingFolio($_SESSION['jobcode']);
 
         if(empty($folioTracking)) return $template;
 

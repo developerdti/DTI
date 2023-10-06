@@ -1,18 +1,13 @@
-document.addEventListener('DOMContentLoaded',()=>{
-    $(document).on('submit','form',function(e){
-        e.preventDefault();
+document.addEventListener('DOMContentLoaded', e =>{
+    $(document).on('click','button[class~="productivity__buttons--send"]',function (e){
+        addMarkingFile();
     });
-
-    $(document).on('click', 'button[class~="tracking__buttons--send"]', function (e) {
-        sendFolio();
-    });
-
 });
 
 function fetchApiWithContent(apiName, Data) {
     return new Promise((resolve) => {
         let status;
-        fetch("Tracking/" + apiName + "", {
+        fetch("Productivity/" + apiName + "", {
             method: "POST",
             body: JSON.stringify(Data),
             headers: {
@@ -49,7 +44,7 @@ function fetchApiWithContent(apiName, Data) {
 function fetchApiWithForm(apiName, formData) {
     return new Promise((resolve) => {
         let status;
-        fetch("Tracking/" + apiName + "", {
+        fetch("Productivity/" + apiName + "", {
             method: "POST",
             body: new FormData(formData)
         })
@@ -80,15 +75,12 @@ function fetchApiWithForm(apiName, formData) {
     });
 }
 
-async function sendFolio(){
-    const formTracking = document.getElementById('form--tracking');
-    const tableBody = document.getElementById('tableTrack--Body');
-    const data = await fetchApiWithForm('sendFolio', formTracking);
+async function addMarkingFile(){
+    const formProductivity = document.getElementById('form--productivity');
+    const data = await fetchApiWithForm('addMarkingFile', formProductivity);
     if (!data) return;
     
-    
-    tableBody.innerHTML = data['tableFolioTmeplate'];
-    formTracking.reset();
+    formProductivity.reset();
     import("./helper.min.js").then((module) => {
       module.buildWarning(data.status);
     });

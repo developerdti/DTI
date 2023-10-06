@@ -50,21 +50,24 @@ class Tracking{
 
         return DataBase::stmGenerator($stm,$config);
     }
-    public static function getmanualDialing(string $jobcode): array
+
+    public static function getManagerJobcode(string $jobcode): array
     {
         $stm =
         "SELECT 
-            manualD.id, manualD.jobcode,manualI.folio,manualD.clientKey,manualD.insertedDate 
+            jobcode
         FROM 
-            manualDialingList 
-        AS 
-            manualD
-        LEFT JOIN 
-            manualDialingListInfo 
-        AS 
-            manualI ON(manualD.id = manualI.infoId)
-        WHERE 
-            manualD.jobcode = :jobcode
+            [dbo].[userInfo] userI
+        left join
+            [dbo].[user] userP on (userP.id = userI.userId)
+        WHERE userI.id = 
+            (SELECT 
+                managerId
+            FROM 
+                [dbo].[userInfo] userI
+            left join
+                [dbo].[user] userP on (userP.id = userI.userId)
+            WHERE jobCode = :jobcode)
         ";
 
         $config = [
@@ -73,11 +76,34 @@ class Tracking{
                 ],
             "connection" => "server",
             "actions" => "search",
-            "fetch" => "all"
+            "fetch" => "single"
         ];
 
         return DataBase::stmGenerator($stm,$config);
     }
 
-    
+    public static function getmanualDialing(string $jobcode, int $group, string $jobcodeSuper): array
+    {
+        $stm =
+        "SELECT folio, clientKey, petition, markingDate FROM 
+            manualDialingList list
+        RIGHT JOIN 
+            manualDialingListInfo listInfo ON (list.id = listInfo.infoId)
+        WHERE list.jobcode = :jobcodeSuper AND clientGroup = :group AND listInfo.jobcode = :jobcode
+        ";
+
+        $config = [
+            "bindvalues"=> [
+                ":jobcode"=> $jobcode,
+                ":group"=> $group,
+                ":jobcodeSuper"=> $jobcodeSuper,
+                ],
+            "connection" => "server",
+            "actions" => "search",
+            "fetch" => "all"
+        ];
+
+
+        return DataBase::stmGenerator($stm,$config);
+    }
 }

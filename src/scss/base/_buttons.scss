@@ -5,11 +5,39 @@
 .button-success{
     background-color: transparent;
     color: v.$success;
-        border: 0.1rem solid v.$success;
-        border-radius: 1rem;
-        padding: 1rem;
+    border: 0.1rem solid v.$success;
+    border-radius: 1rem;
+    padding: 1rem;
         &:hover{
             background-color: v.$success;
             color: v.$white;
+        }
+        &:disabled{
+            border: 0.1rem solid v.$pantone;
+            color: v.$pantone;
+            &:hover{
+                background-color: rgb(77, 84, 112, 0);
+                color: v.$pantone;
+            }   
+        }
+}
+
+.button-danger{
+    background-color: transparent;
+    color: v.$danger;
+    border: 0.1rem solid v.$danger;
+    border-radius: 1rem;
+    padding: 1rem;
+        &:hover{
+            background-color: v.$danger;
+            color: v.$white;
+        }
+        &:disabled{
+            border: 0.1rem solid v.$pantone;
+            color: v.$pantone;
+            &:hover{
+                background-color: rgb(77, 84, 112, 0);
+                color: v.$pantone;
+            }   
         }
 }

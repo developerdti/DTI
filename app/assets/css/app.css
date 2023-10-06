@@ -388,6 +388,34 @@ template {
   background-color: #198754;
   color: #FFFFFF;
 }
+.button-success:disabled {
+  border: 0.1rem solid #4D5470;
+  color: #4D5470;
+}
+.button-success:disabled:hover {
+  background-color: rgba(77, 84, 112, 0);
+  color: #4D5470;
+}
+
+.button-danger {
+  background-color: transparent;
+  color: #dc3545;
+  border: 0.1rem solid #dc3545;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+.button-danger:hover {
+  background-color: #dc3545;
+  color: #FFFFFF;
+}
+.button-danger:disabled {
+  border: 0.1rem solid #4D5470;
+  color: #4D5470;
+}
+.button-danger:disabled:hover {
+  background-color: rgba(77, 84, 112, 0);
+  color: #4D5470;
+}
 
 .div--login {
   display: grid;
@@ -1152,37 +1180,6 @@ template {
   font-size: 1.8rem;
 }
 
-.enableUser__button--enable {
-  border-radius: 0.3rem;
-  background-color: rgba(77, 84, 112, 0);
-  padding: 0.5rem;
-  border: 0.1rem solid #198754;
-  color: #198754;
-}
-.enableUser__button--enable:hover {
-  color: #FFFFFF;
-  background-color: #198754;
-}
-.enableUser__button--enable:disabled {
-  border: 0.1rem solid #4D5470;
-  color: #4D5470;
-}
-.enableUser__button--enable:disabled:hover {
-  background-color: rgba(77, 84, 112, 0);
-  color: #4D5470;
-}
-.enableUser__button--refused {
-  border-radius: 0.3rem;
-  background-color: rgba(77, 84, 112, 0);
-  padding: 0.5rem;
-  border: 0.1rem solid #dc3545;
-  color: #dc3545;
-}
-.enableUser__button--refused:hover {
-  color: #FFFFFF;
-  background-color: #dc3545;
-}
-
 .modifyPermissions__buttonsDiv {
   display: flex;
   margin-top: 1.5rem;
@@ -1331,19 +1328,49 @@ template {
 }
 .tracking__tableTrack {
   overflow: auto;
-  width: 100%;
-  height: 40rem;
   padding: 1rem;
-  max-height: 40rem;
   border: 0.1rem solid #717BA3;
   border-radius: 2rem;
+  margin-top: 2rem;
+  height: auto;
+  max-height: 35rem;
 }
 .tracking__ManualTrack {
   overflow: auto;
-  margin-top: 2rem;
   padding: 1rem;
   border: 0.1rem solid #717BA3;
   border-radius: 2rem;
-  height: 20rem;
-  max-height: 35rem;
+  width: 100%;
+  height: 40rem;
+  max-height: 40rem;
+}
+
+.productivity {
+  background-color: #222D57;
+  padding: 1rem;
+}
+.productivity__container {
+  margin-top: 3rem;
+}
+.productivity i {
+  color: #222D57;
+  font-size: 3rem;
+}
+.productivity__fieldset {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.productivity__fieldset div {
+  margin: 0 !important;
+}
+.productivity__markingInputDiv {
+  width: 80%;
+}
+.productivity__buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
 }

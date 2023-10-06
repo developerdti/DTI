@@ -35,6 +35,20 @@ class DataBase{
         $this->stm = $this->db->prepare($stm);
     }
 
+    private function beginTransaction(array $stm): void
+    {
+        try {
+            $this->db->beginTransaction();
+            foreach($stm as $key => $value){
+                $this->db->query($value);
+            }
+            $this->db->commit();
+        } catch (PDOException $e){
+            $this->db->rollback();
+            throw new DataBaseException("Error al subir informacion: ", 500,$e);
+        }
+    }
+
     private function bindPrepare($stm,$param){
         $this->prepare($stm);
 
@@ -103,7 +117,8 @@ class DataBase{
         }
     }
 
-    public static function stmGenerator($stm,$param):mixed{
+    public static function stmGenerator($stm,$param):mixed
+    {
         $db = new DataBase($param["connection"]);
 
         $db->bindPrepare($stm,$param);
@@ -113,6 +128,13 @@ class DataBase{
             'modify'=> $db->modify($param)
         };
 
+    }
+
+    public static function uploadMultipleTransactions($stm,$param):mixed
+    {
+        $db = new DataBase($param["connection"]);
+
+        return $db->beginTransaction($stm);
     }
 
     public function __destruct()

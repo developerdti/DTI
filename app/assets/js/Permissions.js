@@ -204,7 +204,7 @@ function showModalModifyPermissions(buttonId) {
     divButtons.innerHTML = `
         <input type="hidden" name="jobcode" value="${modifyUserPermissionsButton.value}">
         <button id="modifyPermissionsEnableButton" value="${modifyUserPermissionsButton.value}" type="button" 
-        class="enableUser__button--enable" function="modifyJobcodePermissions" data-bs-dismiss="modal"
+        class="button-success" function="modifyJobcodePermissions" data-bs-dismiss="modal"
         disabled>Modificar permisos</button>
     `
     
@@ -356,7 +356,7 @@ function enableJobcodestemplate() {
     enableJobcodesTabList.innerHTML = listTabs;
 }
 
-function enableJobcodeTemplatePills(buttonId) {
+function enableJobcodeTemplatePills(buttonId) { 
     const enableJobcodesButton = document.getElementById(buttonId);
     var user = request.users.find((e) => e.jobCode === enableJobcodesButton.value);
     const enableJobcodesPill = document.getElementById('enableJobcodes-pill');
@@ -401,9 +401,9 @@ function enableJobcodeTemplatePills(buttonId) {
                     </div>
                     <div class="enableUser__button enableUser__button">
                         <button id="enableUserbuttonId" type="button" value="${user['jobCode']}" function="enableJobcodes" 
-                        class="enableUser__button--enable" disabled>Habilitar usuario</button>
+                        class="button-success" disabled>Habilitar usuario</button>
                         <button id="refusedUserbuttonId" type="button" value="${user['jobCode']}" function="refusedJobcodes" 
-                        class="enableUser__button--refused">Rechazar Usuario</button>
+                        class="button-danger">Rechazar Usuario</button>
                     </div>
                 </fieldset>
             </form>

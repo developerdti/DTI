@@ -80,46 +80,41 @@
                     </fieldset>
                 </form>
             </div>
-            <div class="tracking__tableTrack">
+
+            <div class="tracking__ManualTrack">
                 <table class="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Folio</th>
-                            <th scope="col">Peticion</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Comentario Supervisor</th>
-                            <th scope="col">Status</th>
+                            <th scope="col">Cliente</th>
                             <th scope="col">Fecha</th>
+                            <th scope="col">Estrategia</th>
                         </tr>
                     </thead>
-                    <tbody id="tableTrack--Body">
-                        <?php echo $folioTemplate?>
+                    <tbody>
+                        <?php echo $manualDailingTemplate ?>
                     </tbody>
                 </table>
             </div>
+
         </div>
-        <div class="tracking__ManualTrack">
+
+        <div class="tracking__tableTrack">
             <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Folio</th>
-                        <th scope="col">Cliente</th>
-                        <th scope="col">Claves</th>
+                        <th scope="col">Peticion</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Comentario Supervisor</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Fecha</th>
-                        <th scope="col">Estrategia</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                    </tr>
+                <tbody id="tableTrack--Body">
+                    <?php echo $folioTemplate ?>
                 </tbody>
             </table>
         </div>
