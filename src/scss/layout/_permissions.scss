@@ -44,7 +44,7 @@
         background-color: v.$pantonelight !important;
     }
     &.active{
-        background-color: v.$background !important;
+        background-color: v.$pantoneDark !important;
         color: v.$white !important;
     }
 }
@@ -65,57 +65,128 @@
     }
 }
 
-.form--enableUser{
-    display: flex;
-    justify-content: center;
-    margin-top: 5rem;
+.enableUser{
+    &__form{
+        display: flex;
+        justify-content: center;
+        margin-top: 5rem;
+    }
     &__fieldset{
-        background-color: v.$background;
-        color: v.$white !important;
-        border: 0.1rem solid v.$background;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        background-color: v.$pantoneDark;
+        border: 0.1rem solid v.$pantoneDark;
         border-radius: 1.5rem;
-        width: max-content;
+        color: v.$white !important;
+        width: 40rem;
+        select{
+            font-size: 1.3rem;
+            cursor: pointer;
+        }
+        span{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            i{
+                font-size: 4rem;
+            }
+        }
     }
-    button{
-        border-radius: 0.3rem;
-        background-color: rgb(77, 84, 112, 0);
-    }
-}
 
-.fieldsetPermission{
-    width: 35rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
     &__button{
-        &--enable{
-            border: 0.1rem solid v.$success;
-            color: v.$success;  
-            &:hover{
-                color: v.$white;
-                background-color: v.$success;
-            }
-            &:disabled{
-                border: 0.1rem solid v.$pantone;
-                color: v.$pantone;
-                &:hover{
-                    background-color: rgb(77, 84, 112, 0);
-                    color: v.$pantone;
-                }   
-            }
-        }
-        &--refused{
-            border: 0.1rem solid v.$danger;
-            color: v.$danger;
-            &:hover{
-                color: v.$white;
-                background-color: v.$danger;
-            }
-        }
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 1rem;
+        font-size: 1.8rem;
     }
 }
 
+.SearchUser{
+    fieldset{
+        padding: 0;
+    }
+    &__form-div{
+        margin-bottom: 1rem;
+        div{
+            display: flex;
+            gap: 1rem;
+            span{
+                margin: 0;
+            }
+        }
+    }
+    &__userResult{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &__child{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: v.$pantoneDark;
+            color: v.$white !important;
+            border: 0.1rem solid v.$pantoneDark;
+            border-radius: 1.5rem;
+            width: max-content;
+            padding: 2rem;
+            margin-top: 3rem;
+            gap: 1rem;
+            div{
+                display: flex;
+                align-items: center;
+                justify-content: start;
+                gap: 1rem;
+            }
+            span{
+                margin: 0;
+            }
+            i{
+                font-size: 4rem;
+            }
+        }
+    }
+    
+    border-bottom: 0.1rem solid v.$black;
+    &__search-tabs{
+        overflow-y:auto;
+        max-height: 15rem;
+        margin-bottom: 1rem;
+    }
+    &__listPills{
+        display: flex;
+        flex-direction: column;
+        span{
+            margin-left: 1.5rem;
+        }
+    }
 
+    i{
+        font-size: 1.5rem;
+        color: v.$pantone;
+    }
 
+    &__button{
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        font-size: 1.8rem;
+    }
+}
 
+.modifyPermissions{
+    &__buttonsDiv{
+        display: flex;
+        margin-top: 1.5rem;
+        button{
+            width:100% !important;
 
+        }
+    }
+}

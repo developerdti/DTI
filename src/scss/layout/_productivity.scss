@@ -1,0 +1,40 @@
+@use 'base/variables' as v;
+
+.productivity{
+    background-color: v.$pantoneDark;
+    padding: 1rem;
+    i{
+        font-size: 2rem;  
+    }
+    &__container{
+        margin-top: 3rem;
+    }
+    
+
+    &__fieldset{
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2rem;
+            div{
+                margin: 0 !important;
+            }
+    }
+    &__markingInputDiv{
+        i{
+            color: v.$info;
+        }
+    }
+    &__buttons{
+        display: flex;
+        gap: 1rem;
+        button{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }    
+    }
+
+}
+

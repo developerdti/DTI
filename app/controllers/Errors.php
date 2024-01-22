@@ -31,8 +31,11 @@ class Errors extends controllers{
      * 
      */
     public function index($message){
+
+        $this->view->set('message',$message);
+        $this->view->set('filejs','errors');
+        $this->view->render('HeadElements');
         $this->view->render('Errors');
-        echo "este es el error: ";
-        echo $message;
+        $this->view->render('ScriptElements');
     }
 }

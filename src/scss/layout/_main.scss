@@ -1,4 +1,73 @@
 @use 'base/variables' as v;
 
 
+#imageContainerModal{
+  img{
+    width: 100%;
+    object-fit: contain;
+  }
+}
 
+.sectionContainer{
+  display: grid;
+  justify-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 0.1rem solid v.$pantonelight;
+  margin-top: 5rem;
+  width: auto;
+
+}
+
+.scroll{
+  overflow: auto;
+  display: flex;
+  width: 100%;
+  max-width: 90rem;  
+  padding: 1rem;
+  &::-webkit-scrollbar {
+    height: 1rem; 
+    background: v.$white;
+
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    
+    background: v.$pantoneDark;
+    border-radius: 1.5rem;
+  }
+  &-imageContainer{
+    display: flex;
+    width: 100%;
+    gap: 0.5rem;   
+    button{
+      width: max-content;
+      padding: 0.5rem;
+      border: 0.1rem solid v.$pantonelight;
+      border-radius: 0.5rem;
+      &:hover{
+        -webkit-box-shadow: 2px 4px 19px 0px rgba(77, 84, 112,0.8);
+        -moz-box-shadow: 2px 4px 19px 0px rgba(77, 84, 112,0.8);
+        box-shadow: 2px 4px 19px 0px rgba(77, 84, 112,0.8);
+      }      
+      h3{
+        text-align: center;
+      }
+      img{
+        width: auto;
+        max-width: 15rem;
+        object-fit: contain;
+      }
+    }
+    
+  }
+}
+
+.buttonImageShow{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h4{
+    text-align: center;
+  }
+}

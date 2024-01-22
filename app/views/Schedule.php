@@ -44,7 +44,7 @@
                     <h1 class="modal-title fs-3" id="title--modal"></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" id="tableBody">
+                <div class="modal-body schedule__modalBody" id="tableBody">
                     
                 </div>
                 <div class="modal-footer">

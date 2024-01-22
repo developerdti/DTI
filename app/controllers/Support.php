@@ -36,6 +36,7 @@ class Support{
         }
     }
 
+
     /**
      * Format string for gramatical purpose
      * @access  public
@@ -56,4 +57,5 @@ class Support{
 
         return $string;
     } 
+
 }

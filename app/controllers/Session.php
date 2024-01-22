@@ -112,6 +112,9 @@ class Session extends controllers
         if (empty($this->session)) {
             throw new LoginResponseException("Las claves {$formData['username']} no estan registradas", 422);
         }
+        if ($this->session['status'] === '0'){
+            throw new LoginResponseException("Las claves {$formData['username']} estan inactivas", 422);
+        }
     }
 
     /**
@@ -161,7 +164,7 @@ class Session extends controllers
             $_SESSION['profileId'] = $this->session['profileId'];
             $_SESSION['group'] = $this->session['clientGroup'];
             $_SESSION['kind'] = (int)$this->session['kind'];
-            $_SESSION['name'] = $this->session['firstName'] . ' ' . $this->session['lastName'];
+            $_SESSION['name'] = $this->session['lastName'] . ' ' . $this->session['firstName']. ' ' . $this->session['secondName'];
         } catch (Throwable $e) {
             $previous = $e->getPrevious() ? $e->getPrevious()->getMessage() : '';
             $this->data->generateMessage(

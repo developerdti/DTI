@@ -89,7 +89,7 @@ class Permissions{
     {
         $stm = 
         "SELECT 
-            userP.id,concat(firstName,' ',lastName) as name
+            userI.id,concat(firstName,' ',lastName) as name
         FROM 
             [dbo].[userInfo] as userI
         LEFT JOIN 
@@ -99,7 +99,7 @@ class Permissions{
         LEFT JOIN 
             [dbo].[client] as client on (client.id = userI.clientId)
         WHERE
-            client.id = :clientId";
+            client.id = :clientId AND profile.id = 3";
 
         $config = [
             "bindvalues"=> [
@@ -174,7 +174,7 @@ class Permissions{
                     ":firstName" => $data['firstName'],
                     ":secondName" => $data['secondName'],
                     ":lastName" => $data['lastName'],
-                    ":managerId" => $configData['managerId'] ?? null,
+                    ":managerId" => $configData['Manager'] ?? null,
                 ],
             "connection" => "server",
             "actions" => "modify"
@@ -205,4 +205,178 @@ class Permissions{
         DataBase::stmGenerator($stm,$config);
     }
 
+    public static function refusedJobcode(string $jobcode): void
+    {
+        $stm = 
+        "UPDATE 
+            [dbo].[userRequest] 
+        SET 
+            status = 2
+        WHERE
+            jobCode = :jobcode AND status = 0
+        ";
+
+        $config = [
+            "bindvalues"=> [
+                    ":jobcode" => $jobcode
+                ],
+            "connection" => "server",
+            "actions" => "modify"
+        ];
+
+        DataBase::stmGenerator($stm,$config);
+    }
+
+    public static function searchUsersRegistered(string $jobcode): array
+    {
+        $stm =
+        "SELECT userI.id as id,userP.jobCode as jobcode, concat(lastName,' ',firstName,' ',secondName) as name FROM 
+            [dbo].[userInfo] as userI
+        INNER JOIN 
+            [dbo].[user] as userP ON (userI.userId = userP.id)
+        WHERE
+            (LOWER(lastName) like :jobcode) OR (LOWER(firstName) like :jobcode2) 
+            OR (LOWER(secondName) like :jobcode3) OR (LOWER(userP.jobCode) like :jobcode4)
+        ";
+
+        $config = [
+            "bindvalues"=> [
+                ":jobcode"=> $jobcode,
+                ":jobcode2"=> $jobcode,
+                ":jobcode3"=> $jobcode,
+                ":jobcode4"=> $jobcode,
+                ],
+            "connection" => "server",
+            "actions" => "search",
+            "fetch" => "all"
+        ];
+
+        return DataBase::stmGenerator($stm,$config);
+    }
+
+    public static function searchUserInfo(string $jobCode): array
+    {
+        $stm =
+        "SELECT 
+            CONCAT(lastName,' ',firstName,' ',secondName) as 'Nombre de usuario',
+            userp.jobCode as Claves,pro.name as Perfil,client.name as Cliente,client.clientGroup as Grupo,
+            userP.isActive as status
+        FROM 
+            [dbo].[userInfo] as userI
+        LEFT JOIN 
+            [dbo].[user] as userP ON (userI.userId = userP.id)
+        LEFT JOIN 
+            [dbo].[client] as client ON (userI.clientId = client.id)
+        LEFT JOIN 
+            [dbo].[profile] as pro ON (userP.profileId = pro.id)
+        WHERE 
+            userP.jobCode = :jobCode
+        ";
+
+        $config = [
+            "bindvalues"=> [
+                ":jobCode"=> $jobCode,
+                ],
+            "connection" => "server",
+            "actions" => "search",
+            "fetch" => "single"
+        ];
+
+        return DataBase::stmGenerator($stm,$config);
+    }
+
+    public static function modifyUserInfo(array $data): void
+    {
+        $stm = 
+        "UPDATE 
+            userI
+        SET 
+            managerId = :manager, clientId = :clientId
+        FROM 
+            [dbo].[userInfo] as userI
+        INNER JOIN 
+            [dbo].[user] as userP ON (userI.userId = userP.id)
+        WHERE
+            userP.jobCode = :jobcode
+        ";
+
+        $config = [
+            "bindvalues"=> [
+                ":clientId" => $data['Client'] ?? null,
+                ":manager" => $data['Manager'] ?? null,
+                ":jobcode" => $data['jobcode']
+                ],
+            "connection" => "server",
+            "actions" => "modify"
+        ];
+
+        DataBase::stmGenerator($stm,$config);
+    }
+
+    public static function modifyUser(array $data): void
+    {
+        $stm = 
+        "UPDATE 
+            [dbo].[user]
+        SET 
+            profileId = :profileId
+        WHERE
+            jobCode = :jobcode
+        ";
+
+        $config = [
+            "bindvalues"=> [
+                ":profileId" => $data['profile'] ?? null,
+                ":jobcode" => $data['jobcode']
+                ],
+            "connection" => "server",
+            "actions" => "modify"
+        ];
+
+        DataBase::stmGenerator($stm,$config);
+    }
+
+    public static function disableUser(string $jobcode): void
+    {
+        $stm = 
+        "UPDATE 
+            [dbo].[user] 
+        SET 
+            isActive = 0 
+        WHERE 
+            jobCode = :jobcode;
+        ";
+
+        $config = [
+            "bindvalues"=> [
+                ":jobcode" => $jobcode
+                ],
+            "connection" => "server",
+            "actions" => "modify"
+        ];
+
+        DataBase::stmGenerator($stm,$config);
+    }
+
+    public static function activeUser(string $jobcode): void
+    {
+        $stm = 
+        "UPDATE 
+            [dbo].[user] 
+        SET 
+            isActive = 1
+        WHERE 
+            jobCode = :jobcode;
+        ";
+
+        $config = [
+            "bindvalues"=> [
+                ":jobcode" => $jobcode
+                ],
+            "connection" => "server",
+            "actions" => "modify"
+        ];
+
+        DataBase::stmGenerator($stm,$config);
+    }
 }

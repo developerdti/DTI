@@ -9,11 +9,13 @@ class Session{
     public static function getJobcode(string $jobcode):array
     {
         $stm = "SELECT 
+                    userI.isActive as status,
                     jobCode,
                     password,
                     profileId,
                     userI.isActive as isActive,
                     userp.firstName as firstName,
+                    userp.secondName as secondName,
                     userp.lastName as lastName,
                     clientGroup,
                     pro.kind as kind
@@ -26,7 +28,7 @@ class Session{
                 LEFT JOIN 
                     [cyberdti].[dbo].[client] AS client ON (userp.clientId = client.id)
                 WHERE
-                    jobcode = :jobcode and userI.isActive = 1";
+                    jobcode = :jobcode";
 
         $config = [
             "bindvalues"=> [

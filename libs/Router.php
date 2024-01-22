@@ -49,8 +49,11 @@ class Router{
             $this->controller = new $namespace;
             call_user_func([$this->controller,$this->method],$this->atributes);
         } catch (Throwable $e) {
-            echo $e->getMessage().$e->getCode();
-            echo json_encode(($e->getMessage().$this->method).$e->getprevious());
+            // echo $e->getMessage().$e->getCode();
+            // echo json_encode(($e->getMessage().$this->method).$e->getprevious());
+            $err = new Errors;
+            $err->index('OOPS! '.$e->getCode().$e->getMessage().'');
+            // call_user_func([$this->controller,$this->method],$this->atributes);
             // http_response_code($e->getCode());
         }
     }

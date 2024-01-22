@@ -28,3 +28,6 @@ define('STYLE_PATH', APLICATION_PATH .'/assets/css');
 define('SCRIPT_PATH', APLICATION_PATH .'/assets/js');
 
 define('IMAGE_PATH',DOMAIN_PATH.'/public/src/img'); 
+
+define('IMAGE_PATH_LOCAL',PROJECT_PATH.'/public/src/img');  
+

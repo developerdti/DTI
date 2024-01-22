@@ -3,6 +3,7 @@
 declare(strict_types = 1);
 namespace app\controllers;
 use app\controllers\Sidebar;
+use app\models\Main as modelMain;
 use libs\controllers;
 
 /**
@@ -38,6 +39,7 @@ class Main extends controllers{
             header('location: Session');
         }
         $this->view->set('sidebar',Sidebar::creatSidebar($_SESSION['kind'],$_SESSION['group']));
+        $this->view->set('mainTemplate',self::mainDashBoard($_SESSION['kind'],$_SESSION['group']));
         $this->view->set('filejs','main');
         $this->view->set('name',$_SESSION['name']);
         $this->view->render('HeadElements');
@@ -46,5 +48,46 @@ class Main extends controllers{
         $this->view->render('Sidebar');
         $this->view->render('Footer');
         $this->view->render('ScriptElements');
+    }
+
+    private static function mainDashBoard(int $kind, string|null $group): string
+    {
+        $sectionTemplate = '';
+        
+        $rut = IMAGE_PATH;
+        $section = modelMain::sectionInfo($group);
+        if(empty($section)){
+            return 'errors';
+        } 
+        foreach($section as $key){
+            $imageButton = modelMain::imageInfo((int) $key['id']);
+            $image = '';
+            foreach($imageButton as $img){
+                $imgDescription = $img['description'] ? '<h4>'.$img['description'].'</h4>': '';
+                $image .= <<<EOD
+                    <div class="buttonImageShow">
+                    {$imgDescription}
+                        <button type="button" class="btn Button__imageModal" data-bs-toggle="modal" data-bs-target="#imageModal">
+                            <img src="{$rut}/{$key['location']}/{$img['name']}" alt="{$img['name']}">
+                        </button>                    
+                    </div>
+
+                EOD;
+            }
+            $sectionTemplate .= <<<EOD
+                <section class="container sectionContainer" >
+                    <h3>{$key['name']}</h2>
+                    <div class="scroll">
+                        <div class="scroll-imageContainer">
+                            {$image}
+                        </div>
+                    </div>
+
+                </section>
+                
+            EOD;    
+        }
+
+        return $sectionTemplate;
     }
 }

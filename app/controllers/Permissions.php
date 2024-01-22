@@ -109,7 +109,6 @@ class Permissions extends controllers
     }
 
     public function enableJobcodes(){
-
         try {
             $requestData = modelPermissions::requestData($_POST['jobcode']);
 
@@ -139,5 +138,221 @@ class Permissions extends controllers
             echo json_encode($this->data->getdata());
         }
     }
+
+    public function refusedJobcodes(){
+        try {
+            modelPermissions::refusedJobcode($_POST['jobcode']);
+
+            $this->data->generateMessage(
+                'exito',
+                ['title' => 'Registro exitoso', 'message' => 'El usuario fue rechazado']
+            );
+            $this->data->generateMessage('jobcode',$_POST['jobcode']);
+        } catch (Throwable $e) {
+            $previous = $e->getPrevious() ? $e->getPrevious()->getMessage() : '';
+            $this->data->generateMessage(
+                'warning',
+                MessageException::createMessage(
+                    'Refused Jobcodes error',
+                    $e->getMessage(),
+                    (int)$e->getCode(),
+                    get_class($e),
+                    $previous
+                )
+            );
+            http_response_code($e->getCode());
+        } finally {
+            echo json_encode($this->data->getdata());
+        }
+    }
+
+    public function searchUsers(){
+        try {
+            $regex = '/[\^ <,\"@\/{}()*$%¿?=>:|;#+\-0-9]+/i';
+
+            if (preg_match($regex, $_POST['searchUsers']) == 1 || empty($_POST['searchUsers'])) {
+                $template = '<h3>No se encuentran resultados</h3>';
+            }else{
+                $template = '';
+                $like = $_POST['searchUsers'].'%';
+                $searchResult = modelPermissions::searchUsersRegistered($like);
+
+                if(empty($searchResult)){
+                    $template = '<h3>No se encuentran resultados</h3>';
+                }else{
+                    foreach($searchResult as $key){
+                            $template .= <<<EOD
+                                <li>
+                                    <button class="nav-link SearchUser__listPills-button" value='{$key["jobcode"]}' 
+                                    id='tabUser-{$key["id"]}' function="searchUsersInfo" data-bs-toggle="pill" 
+                                    type="button">{$key["name"]} claves: {$key["jobcode"]}</button>
+                                </li>
+                            EOD;
+                    }
+                    $template = <<<EOD
+                    <ul class="nav nav-pills mb-3 SearchUser__listPills" id="pills-tab">
+                        {$template}
+                    </ul>
+                    EOD;
+                 }
+            }
+            
+            $this->data->generateMessage('templateTab',$template);
+        } catch (Throwable $e) {
+            $previous = $e->getPrevious() ? $e->getPrevious()->getMessage() : '';
+            $this->data->generateMessage(
+                'warning',
+                MessageException::createMessage(
+                    'Search Users error',
+                    $e->getMessage(),
+                    (int)$e->getCode(),
+                    get_class($e),
+                    $previous
+                )
+            );
+            http_response_code($e->getCode());
+        } finally {
+            echo json_encode($this->data->getdata());
+        }
+    }
+
+    public function searchUsersInfo(){
+        try {
+            $json = json_decode(file_get_contents('php://input'));
+            $searchResult = modelPermissions::searchUserInfo($json[0]);
+            $infoTemplate = '';
+            foreach($searchResult as $key => $value){
+
+                if(!empty($value)){
+                    if(!($key === 'status')){
+                        $infoTemplate .= <<<EOD
+                        <div class="SearchUser-divInfo">
+                            <span>{$key}:</span>
+                            <p>{$value}</p>
+                        </div>
+                    EOD;
+                    }
+                }
+            }
+            if($searchResult["status"] === '1'){
+                $button = <<<EOD
+                <button type="button" class="button-danger" id="disableUserPermission--button" 
+                value="{$searchResult["Claves"]}" function="disableUser">Inhabilitar usuario</button>
+                EOD;
+            }else{
+                $button = <<<EOD
+                <button type="button" class="button-success" id="disableUserPermission--button" 
+                value="{$searchResult["Claves"]}" function="enableUser">habilitar Usuario</button>
+                EOD;
+            }
+            $templatepill = <<<EOD
+            <div class= "SearchUser__userResult__child">
+                <i class="bi bi-person-vcard"></i>
+                {$infoTemplate}
+                <form id="form__searchUser" name="form--searchUser" class="form--searchUser">
+                    <fieldset class="form--searchUser__fieldset fieldsetSearchUser">
+                        <div class="SearchUser__button">
+                            <button type="button" class="button-success" id="modifyUserPermission--button" 
+                            value="{$searchResult["Claves"]}" function="showModalModifyPermissions" data-bs-toggle="modal" 
+                            data-bs-target="#modifyPermissions">Modificar</button>
+                            {$button}
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+                
+            EOD;
+
+            $this->data->generateMessage('templatePills',$templatepill);
+            $this->data->generateMessage('userInfo',$searchResult);
+        } catch (Throwable $e) {
+            $previous = $e->getPrevious() ? $e->getPrevious()->getMessage() : '';
+            $this->data->generateMessage(
+                'warning',
+                MessageException::createMessage(
+                    'Search User Info error',
+                    $e->getMessage(),
+                    (int)$e->getCode(),
+                    get_class($e),
+                    $previous
+                )
+            );
+            http_response_code($e->getCode());
+        } finally {
+            echo json_encode($this->data->getdata());
+        }
+    }
+
+    public function modifyJobcodePermissions(){
+        try {
+            modelPermissions::modifyUser($_POST);
+            modelPermissions::modifyUserInfo($_POST);
+            $this->data->generateMessage('templateTab',$_POST);
+        } catch (Throwable $e) {
+            $previous = $e->getPrevious() ? $e->getPrevious()->getMessage() : '';
+            $this->data->generateMessage(
+                'warning',
+                MessageException::createMessage(
+                    'modify Jobcode Permissions error',
+                    $e->getMessage(),
+                    (int)$e->getCode(),
+                    get_class($e),
+                    $previous
+                )
+            );
+            http_response_code($e->getCode());
+        } finally {
+            echo json_encode($this->data->getdata());
+        }
+    }
+
+    public function disableUser(){
+        try {
+            $json = json_decode(file_get_contents('php://input'));
+            modelPermissions::disableUser($json[0]);
+
+            $this->data->generateMessage('Success','Claves inactivadas');
+        } catch (Throwable $e) {
+            $previous = $e->getPrevious() ? $e->getPrevious()->getMessage() : '';
+            $this->data->generateMessage(
+                'warning',
+                MessageException::createMessage(
+                    'Disable User Permissions error',
+                    $e->getMessage(),
+                    (int)$e->getCode(),
+                    get_class($e),
+                    $previous
+                )
+            );
+            http_response_code($e->getCode());
+        } finally {
+            echo json_encode($this->data->getdata());
+        }
+    }
+    
+    public function enableUser(){
+        try {
+            $json = json_decode(file_get_contents('php://input'));
+            modelPermissions::activeUser($json[0]);
+
+            $this->data->generateMessage('Success','Claves activadas');
+        } catch (Throwable $e) {
+            $previous = $e->getPrevious() ? $e->getPrevious()->getMessage() : '';
+            $this->data->generateMessage(
+                'warning',
+                MessageException::createMessage(
+                    'Disable User Permissions error',
+                    $e->getMessage(),
+                    (int)$e->getCode(),
+                    get_class($e),
+                    $previous
+                )
+            );
+            http_response_code($e->getCode());
+        } finally {
+            echo json_encode($this->data->getdata());
+        }
+    }
 }
+
 
